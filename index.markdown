@@ -4,7 +4,6 @@
 
 layout: home
 title: Project
-permalink: /home/
 ---
 
 ## Welcome to B-04 DS Project
