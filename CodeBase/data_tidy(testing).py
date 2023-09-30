@@ -77,7 +77,7 @@ def json_reader(json_path:str) -> pd.DataFrame:
                 if player["playerType"]== "Goalie":
                     goalie = player["player"]
                     goalie_name = player["player"]["fullName"]
-                elif player["playerType"]== "Shooter":
+                elif player["playerType"]== "Scorer":
                     shooter = player["player"]
                     shooter_name = player["player"]["fullName"]
             empty_Net = goal["result"]["emptyNet"]
@@ -87,9 +87,14 @@ def json_reader(json_path:str) -> pd.DataFrame:
                         attack_team_name,coordinate,shooter_name,goalie_name,
                         empty_Net,strength]
 
+            
             rows.append(item_row)
-    return rows
+            df = pd.DataFrame(rows,columns=[["play_type","game_id","game_time","team_home","team_away",
+                        "goal_period","goal_period_time","goal_period_time_rem",
+                        "attack_team_name","coordinate","shooter_name","goalie_name",
+                        "empty_Net","strength"]])
+    return df
 p = json_reader("./nhl_data/2016020001.json")
-print(p[0])
+print(p)
 
     
