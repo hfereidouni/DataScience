@@ -2,6 +2,7 @@ import json
 import os
 import pandas
 
+#for each game(only draft and test rn)
 with open('./nhl_data/2016020001.json') as f:
     game_json = json.load(f)
     # game time/period information,game ID,team information (which team took the shot),shot/goal,coordinates,
