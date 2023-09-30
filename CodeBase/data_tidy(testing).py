@@ -44,7 +44,26 @@ with open('./nhl_data/2016020001.json') as f:
         strength = None
     
     #goal
-    
+    for shot_idx in shot_idxs:
+        shot = plays[shot_idx]
+        attack_team = shot["team"]
+        attack_team_id = shot["team"]["id"]
+        attack_team_name = shot["team"]["name"]
+        attack_team_triCode = shot["team"]["triCode"]
+        play_type = "Shot"
+        coordinate= (shot["coordinates"]["x"],shot["coordinates"]["y"])
+        players = shot["players"]
+        for player in players:
+            if player["playerType"]== "Goalie":
+                goalie = player
+                goalie_name = player["fullName"]
+            elif player["playerType"]== "Shooter":
+                shooter = player
+                shooter_name = player["fullName"]
+       
+               # ...
+        empty_Net = None
+        strength = None
 
     
     #TODO
