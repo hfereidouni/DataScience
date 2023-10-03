@@ -95,9 +95,15 @@ class NHLExplorer:
             else:
                 ax.plot(x, y, 'ro', markersize=12)
             ax.text(x + 2, y + 2, f'[{x}, {y}]', fontsize=12, color='black')
-
+        
+        # Add horizontal line at y=0
+        ax.axhline(0, color='black', linestyle='--', linewidth=1)
+        # Add vertical lines at x=89 and x=-89 for the nets
+        ax.axvline(89, color='black', linestyle='--', linewidth=1)
+        ax.axvline(-89, color='black', linestyle='--', linewidth=1)
+        
         plt.show()
-
+        
         print(event.get('result', {}).get('description', 'No event description available.'))
         game_info = game['liveData']['plays']['allPlays'][event_idx - 1] if event_idx > 0 else game['gameData']
         game_info_text = json.dumps(game_info, indent=4)
