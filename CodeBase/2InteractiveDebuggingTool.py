@@ -160,7 +160,7 @@ class NHLExplorer:
         event_coord = event.get('coordinates', {})
 
         # Create a plot to display the event
-        img = mpimg.imread('ice_rink.gif')
+        img = mpimg.imread('ice_rink.png')
         fig, ax = plt.subplots(figsize=(10, 4.25))
         ax.imshow(img, extent=[-100, 100, -42.5, 42.5])
         plt.ylim((-42.5, 42.5))
