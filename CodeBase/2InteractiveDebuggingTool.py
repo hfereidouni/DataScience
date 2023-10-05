@@ -7,7 +7,7 @@ import json
 
 # Define the NHLExplorer class to explore and visualize NHL games data
 class NHLExplorer:
-"""
+    """
     Class to explore and visualize NHL game data using interactive widgets.
     
     Attributes:
@@ -22,7 +22,7 @@ class NHLExplorer:
     display_event(self, game_id, event_idx)
     display_widgets(self)
     browse_games(self)
-"""
+    """
 
     def __init__(self, season):
         """
