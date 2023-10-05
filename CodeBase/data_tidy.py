@@ -73,14 +73,14 @@ def json_reader(json_path:str) -> pd.DataFrame:
                         home_or_away = "home"
                         for p in periods:
                             if p["num"] == period:
-                                if "rinkSide" in p["home"]:
-                                    rink_side = p["home"]["rinkSide"]
+                                if "rinkSide" in p[home_or_away]:
+                                    rink_side = p[home_or_away]["rinkSide"]
                     else:
                         home_or_away = "away"
                         for p in periods:
                             if p["num"] == period:
-                                if "rinkSide" in p["away"]:
-                                    rink_side = p["away"]["rinkSide"]
+                                if "rinkSide" in p[home_or_away]:
+                                    rink_side = p[home_or_away]["rinkSide"]
                     
                     if rink_side == "left":
                         shot_dist = np.linalg.norm(np.array([coordinate["x"],coordinate["y"]]) - np.array(RIGHT_NET_COOR))
@@ -139,6 +139,15 @@ def read_a_season(path:str,start_year:int)->pd.DataFrame:
         return None
     return result
 
+def read_seasons(path:str,start_season:int,end_season:int)->pd.DataFrame:
+    years = list(range(start_season,end_season+1))
+    result = pd.DataFrame()
+    for year in years:
+        temp = read_a_season(path,year)
+        result = pd.concat([result,temp],ignore_index=True)
+    return result
+
+
 def read_all_game(path:str)->pd.DataFrame:
     result = pd.DataFrame()
     res = os.listdir(path)
@@ -152,5 +161,5 @@ def read_all_game(path:str)->pd.DataFrame:
     print("Finieshed.")
     return result
 
-# read_all_game("./nhl_data/").to_csv('./tidy.csv', sep=',') 
-# read_a_season("./nhl_data/",2016).to_csv('./tidy_{season}.csv'.format(season=2016), sep=',')
+# read_all_game("./nhl_data/").to_csv('./tidy_test_1.csv', sep=',',index=False) 
+# read_a_season("./nhl_data/",2016).to_csv('./tidy_{season}.csv'.format(season=2016), sep=',',index=False)
