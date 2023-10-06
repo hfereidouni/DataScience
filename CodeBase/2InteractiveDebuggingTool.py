@@ -44,8 +44,8 @@ class NHLExplorer:
         self.game_type_dropdown = widgets.Dropdown(options=['Regular', 'Playoffs'], description='Game Type:')
         self.game_type_dropdown.observe(self.update_game_type, 'value')
 
-        # Create an IntSlider widget for selecting the game ID
-        self.game_slider = widgets.IntSlider(min=1, max=1353, description='Game ID:')
+        # Create an IntSlider widget for selecting the game ID; Maximum is 1271 for our case
+        self.game_slider = widgets.IntSlider(min=1, max=1271, description='Game ID:')
         
         # Create an IntSlider widget for selecting the event within the game
         self.event_slider = widgets.IntSlider(min=0, max=0, description='Event:')
@@ -123,17 +123,9 @@ class NHLExplorer:
         game_data = self.load_game_data(self.game_slider.value)
         if game_data is not None:
             all_plays = game_data['liveData']['plays']['allPlays']
-            new_max = len(all_plays) - 1
-        
-            # First, ensure that the value of the slider does not exceed the new_max
-            if self.event_slider.value > new_max:
-                self.event_slider.value = new_max
-            # Now, update the max value
-            self.event_slider.max = new_max
+            self.event_slider.max = len(all_plays) - 1
         else:
-            # If no game data found, set value and max to the minimum value to avoid the "max < min" error
-            self.event_slider.value = self.event_slider.min
-            self.event_slider.max = self.event_slider.min
+            self.event_slider.max = 0
 
             
     def display_event(self, game_id, event_idx):
@@ -188,7 +180,7 @@ class NHLExplorer:
         plt.show()
 
         print(event.get('result', {}).get('description', 'No event description available.'))
-        game_info = game['liveData']['plays']['allPlays'][event_idx - 1] if event_idx > 0 else game['gameData']
+        game_info = game['liveData']['plays']['allPlays'][event_idx] if event_idx > 0 else game['gameData']
         game_info_text = json.dumps(game_info, indent=4)
         self.game_info_text.value = game_info_text
 
@@ -218,6 +210,7 @@ class NHLExplorer:
         self.game_slider.observe(display_data, 'value')
         self.event_slider.observe(display_data, 'value')
         self.display_widgets()
+
 
 
 # Create an instance of NHLExplorer and start browsing games for the 2016 season
