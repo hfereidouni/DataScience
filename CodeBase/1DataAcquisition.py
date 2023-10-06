@@ -1,16 +1,28 @@
 import requests
 import json
 import os
+from tqdm import tqdm
 
+# The base URL and output directory
 BASE_URL = "https://statsapi.web.nhl.com/api/v1/game/{}/feed/live/"
 OUTPUT_DIR = "nhl_data"
-#OUTPUT_DIR_PLAYOFFS = "nhl_data_playoffs"
 
 # Ensure the output directories exist
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
 def generate_game_ids(season, playoffs=False):
+    """
+    Generate game IDs based on the given NHL season and whether it's for playoffs or regular season.
+
+    Parameters:
+    - season (int): The year of the NHL season. 
+    - playoffs (bool): Whether the IDs are for playoffs. Default is False (for regular season).
+
+    Returns:
+    - list of str: A list of game IDs for the specified season and type (playoffs or regular season).
+    """
+    
     ids = []
 
     # Determine the number of games based on teams in the season
@@ -34,7 +46,19 @@ def generate_game_ids(season, playoffs=False):
 
     return ids
 
+
 def download_data(game_id, playoffs=False):
+    """
+    Download game data using the given game ID and save it as a JSON file.
+
+    Parameters:
+    - game_id (str): The game ID for which data is to be downloaded.
+    - playoffs (bool): Whether the game is a playoff game. Default is False (for regular season).
+
+    Returns:
+    None
+    """
+    
     response = requests.get(BASE_URL.format(game_id))
     if response.status_code == 200:
         if not playoffs:
@@ -44,17 +68,23 @@ def download_data(game_id, playoffs=False):
         with open(f"{output_dir}/{game_id}.json", 'w') as f:
             json.dump(response.json(), f)
 
+
 if __name__ == "__main__":
     # Iterate over the desired seasons
     for season in range(2016, 2021):
         print(f"Downloading regular season data for {season}-{season+1} season...")
-        for game_id in generate_game_ids(season, playoffs=False):
+
+        # Added tqdm to the loop for progress bar visualization
+        for game_id in tqdm(generate_game_ids(season, playoffs=False), desc="Regular Season", unit="game"):
             download_data(game_id, playoffs=False)
+
         print(f"Finished downloading regular season data for {season}-{season+1} season!")
 
         print(f"Downloading playoff data for {season}-{season+1} season...")
-        for game_id in generate_game_ids(season, playoffs=True):
+
+        for game_id in tqdm(generate_game_ids(season, playoffs=True), desc="Playoffs", unit="game"):
             download_data(game_id, playoffs=True)
+
         print(f"Finished downloading playoff data for {season}-{season+1} season!")
 
 print("All done!")
