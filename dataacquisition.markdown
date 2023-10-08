@@ -125,14 +125,19 @@ print("All done!")
 This code is a script to download NHL game data for both regular season and playoffs from a given API endpoint. It covers the seasons from 2016 to 2020.
 
 #### Imports:
-requests: To make HTTP requests to the API.
-json: To parse and save the JSON response from the API.
-os: To interact with the filesystem, ensuring directories exist.
-tqdm: To display a progress bar when downloading data.
+`requests`: To make HTTP requests to the API.
+
+`json`: To parse and save the JSON response from the API.
+
+`os`: To interact with the filesystem, ensuring directories exist.
+
+`tqdm`: To display a progress bar when downloading data.
 
 #### Constants:
-BASE_URL: A string template of the API endpoint from where game data is fetched.
-OUTPUT_DIR: The directory name where the downloaded JSON files are saved.
+`BASE_URL`: A string template of the API endpoint from where game data is fetched.
+
+`OUTPUT_DIR`: The directory name where the downloaded JSON files are saved.
+
 Ensure Directories:
 The code checks if the OUTPUT_DIR exists, and if not, it creates the directory.
 
