@@ -183,7 +183,7 @@ Run the script:
 
 `python 1DataAcquisition.py`
 
-Once executed, the data for each game will be saved as individual JSON files in a directory named nhl_data.
+Once executed, the data for each game will be saved as individual JSON files in a directory named `nhl_data`.
 
 Note: It's crucial to ensure that you're not overloading the NHL API servers with numerous requests. Also, please do not store large amounts of data on Git repositories; it's not recommended.
 
