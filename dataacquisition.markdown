@@ -20,8 +20,11 @@ GGGG: Specific game number.
 We've created a Python script for this task. Here's a breakdown of the code:
 
 Setup: Import necessary libraries and setup constants.
+
 Game ID Generation: Based on the season and game type, generate the required game IDs.
+
 Data Download: Using the generated game IDs, fetch the data from the NHL API and save it as JSON.
+
 
 
 <pre>
