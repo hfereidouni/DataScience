@@ -139,7 +139,7 @@ This code is a script to download NHL game data for both regular season and play
 `OUTPUT_DIR`: The directory name where the downloaded JSON files are saved.
 
 Ensure Directories:
-The code checks if the OUTPUT_DIR exists, and if not, it creates the directory.
+The code checks if the `OUTPUT_DIR` exists, and if not, it creates the directory.
 
 #### Functions:
 `generate_game_ids(season, playoffs=False):`
@@ -152,7 +152,7 @@ Returns a list of game IDs for the specified season and type (playoffs or regula
 Fetches game data from the API using a given game ID and saves the data as a JSON file in the specified directory.
 This function doesn't return any value.
 
-Main Execution:
+#### Main Execution:
 The `if __name__ == "__main__":` block does the following:
 
 Iterates over the seasons from 2016 to 2020.
@@ -169,7 +169,7 @@ After iterating through all seasons, it prints "All done!" to indicate the end o
 The number of total games in the season is determined by the number of teams playing in that season.
 Game IDs are constructed differently for regular seasons and playoffs.
 tqdm is used to give a visual representation of the download progress for each season.
-In the `download_data()` function, there's a redundant check for playoffs (if not playoffs:... else:...). Both branches do the same thing, suggesting a potential oversight.
+In the `download_data()` function, there's a redundant check for playoffs (if not playoffs:... else:...).
 The script currently covers only seasons from 2016 to 2020, but it could be easily extended to other seasons if needed.
 
 ### How to Use:
@@ -188,3 +188,7 @@ Once executed, the data for each game will be saved as individual JSON files in 
 Note: It's crucial to ensure that you're not overloading the NHL API servers with numerous requests. Also, please do not store large amounts of data on Git repositories; it's not recommended.
 
 And that's it! Now you have a straightforward tool to download NHL play-by-play data. Happy analyzing!
+
+### References:
+https://gitlab.com/dword4/nhlapi/-/blob/master/stats-api.md#game-ids
+
