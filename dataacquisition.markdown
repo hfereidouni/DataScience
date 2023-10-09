@@ -25,7 +25,7 @@ We've created a Python script for this task. Here's a breakdown of the code:
 
 
 <pre>
-```
+
 import requests
 import json
 import os
@@ -116,7 +116,7 @@ if __name__ == "__main__":
         print(f"Finished downloading playoff data for {season}-{season+1} season!")
 
 print("All done!")
-```
+
 </pre>
 
 ### Code Description:
