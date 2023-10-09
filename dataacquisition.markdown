@@ -166,7 +166,7 @@ For each season:
 The number of total games in the season is determined by the number of teams playing in that season.
 Game IDs are constructed differently for regular seasons and playoffs.
 `tqdm` is used to give a visual representation of the download progress for each season.
-In the `download_data()` function, there's a redundant check for playoffs (if not playoffs:... else:...).
+In the `download_data()` function, there's a redundant check for playoffs (`if not playoffs:... else:...`).
 The script currently covers only seasons from 2016 to 2020, but it could be easily extended to other seasons if needed.
 
 ### How to Use:
@@ -174,7 +174,7 @@ Ensure you have the necessary libraries installed:
 
 `pip install requests tqdm`
 
-Save the above code in a Python script named 1DataAcquisition.py
+Save the above code in a Python script named `1DataAcquisition.py`
 
 Run the script:
 
