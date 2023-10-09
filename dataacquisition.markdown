@@ -18,12 +18,9 @@ GGGG: Specific game number.
 
 ### The Code:
 We've created a Python script for this task. Here's a breakdown of the code:
-
-Setup: Import necessary libraries and setup constants.
-
-Game ID Generation: Based on the season and game type, generate the required game IDs.
-
-Data Download: Using the generated game IDs, fetch the data from the NHL API and save it as JSON.
+- Setup: Import necessary libraries and setup constants.
+- Game ID Generation: Based on the season and game type, generate the required game IDs.
+- Data Download: Using the generated game IDs, fetch the data from the NHL API and save it as JSON.
 
 
 
@@ -128,13 +125,10 @@ print("All done!")
 This code is a script to download NHL game data for both regular season and playoffs from a given API endpoint. It covers the seasons from 2016 to 2020.
 
 #### Imports:
-`requests`: To make HTTP requests to the API.
-
-`json`: To parse and save the JSON response from the API.
-
-`os`: To interact with the filesystem, ensuring directories exist.
-
-`tqdm`: To display a progress bar when downloading data.
+* `requests`: To make HTTP requests to the API.
+* `json`: To parse and save the JSON response from the API.
+* `os`: To interact with the filesystem, ensuring directories exist.
+* `tqdm`: To display a progress bar when downloading data.
 
 #### Constants:
 `BASE_URL`: A string template of the API endpoint from where game data is fetched.
@@ -160,18 +154,18 @@ The `if __name__ == "__main__":` block does the following:
 
 Iterates over the seasons from 2016 to 2020.
 For each season:
-Announces the downloading of regular season data.
-Uses tqdm to display a progress bar while downloading regular season games data.
-Announces the completion of regular season data download.
-Announces the downloading of playoff data.
-Uses tqdm to display a progress bar while downloading playoff games data.
-Announces the completion of playoff data download.
-After iterating through all seasons, it prints "All done!" to indicate the end of the script's execution.
+- Announces the downloading of regular season data.
+- Uses `tqdm` to display a progress bar while downloading regular season games data.
+- Announces the completion of regular season data download.
+- Announces the downloading of playoff data.
+- Uses `tqdm` to display a progress bar while downloading playoff games data.
+- Announces the completion of playoff data download.
+- After iterating through all seasons, it prints "All done!" to indicate the end of the script's execution.
 
 #### Observations:
 The number of total games in the season is determined by the number of teams playing in that season.
 Game IDs are constructed differently for regular seasons and playoffs.
-tqdm is used to give a visual representation of the download progress for each season.
+`tqdm` is used to give a visual representation of the download progress for each season.
 In the `download_data()` function, there's a redundant check for playoffs (if not playoffs:... else:...).
 The script currently covers only seasons from 2016 to 2020, but it could be easily extended to other seasons if needed.
 
