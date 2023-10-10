@@ -139,12 +139,12 @@ Ensure Directories:
 The code checks if the `OUTPUT_DIR` exists, and if not, it creates the directory.
 
 #### Functions:
-`generate_game_ids(season, playoffs=False)`
+`generate_game_ids(season, playoffs=False)`:
 
 Generates game IDs based on the given NHL season and specifies if the data is for playoffs or the regular season.
 Returns a list of game IDs for the specified season and type (playoffs or regular season).
 
-`download_data(game_id, playoffs=False)`
+`download_data(game_id, playoffs=False)`:
 
 Fetches game data from the API using a given game ID and saves the data as a JSON file in the specified directory.
 This function doesn't return any value.
