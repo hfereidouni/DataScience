@@ -33,7 +33,6 @@ def json_reader(json_path:str) -> pd.DataFrame:
         game_json = json.load(f)
         game_time = game_json["gameData"]["datetime"]["dateTime"]
         game_id = game_json["gamePk"]
-        # print(game_id)
         teams = game_json["gameData"]["teams"]
         team_home = teams["home"]
         team_away = teams["away"]
@@ -145,6 +144,15 @@ def json_reader(json_path:str) -> pd.DataFrame:
     return df
 
 def read_a_season(path:str,start_year:int)->pd.DataFrame:
+    """
+    Parameters:
+    path(str): Path for the json file of a game
+    start_year(int): Start year of a selected season eg.2016 for season 2016-2017
+
+    Returns:
+    Pandas Dataframe:Tidied data for one particular season
+
+   """
     if start_year>=2016 and start_year<=2020:
         res = os.listdir(path)
         result = pd.DataFrame()
@@ -160,6 +168,17 @@ def read_a_season(path:str,start_year:int)->pd.DataFrame:
     return result
 
 def read_seasons(path:str,start_season:int,end_season:int)->pd.DataFrame:
+    """This function will read multiple seasons from start_season to end_season
+
+    Parameters:
+    path(str): Path for the json file of a game
+    start_season(int): Start year or start season
+    end_season(int): Start year or end season
+
+    Returns:
+    Pandas Dataframe:Tidied data for selected seasons
+
+   """
     years = list(range(start_season,end_season+1))
     result = pd.DataFrame()
     for year in years:
@@ -169,6 +188,15 @@ def read_seasons(path:str,start_season:int,end_season:int)->pd.DataFrame:
 
 
 def read_all_game(path:str)->pd.DataFrame:
+    """This function will read all game json files in path
+
+    Parameters:
+    path(str): Path for the json file of a game json directory
+
+    Returns:
+    Pandas Dataframe:Tidied data for all games
+
+   """
     result = pd.DataFrame()
     res = os.listdir(path)
     length = len(res)
