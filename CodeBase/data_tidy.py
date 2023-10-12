@@ -161,7 +161,13 @@ def read_a_season(path:str,start_year:int)->pd.DataFrame:
             if int(res[i][:4]) == start_year:
                 path1 = path+res[i]
                 temp = json_reader(path1)
-                result = pd.concat([result,temp],ignore_index=True)
+                if result.empty:
+                    # print(result)
+                    result = temp
+                else:
+                    # pandas 2.1.1 has null error
+                    # fix: https://stackoverflow.com/questions/77254777/alternative-to-concat-of-empty-dataframe-now-that-it-is-being-deprecated
+                    result = pd.concat([result.astype(temp.dtypes),temp.astype(result.dtypes)],ignore_index=True)
     else:
         print("Please choose a season between 2016 and 2020")
         return None
