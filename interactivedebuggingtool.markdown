@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Data Acquisition
+title: Interactive Debugging Tool
 permalink: /milestone1/interactivedebuggingtool
 ---
 
