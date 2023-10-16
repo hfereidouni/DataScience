@@ -283,28 +283,44 @@ The code defines a Python class called `NHLExplorer`, which is designed to inter
 * **Creating an Instance:** Finally, an instance of `NHLExplorer` is created for the 2016 season, and the `browse_games` method is called to initiate the interactive exploration of NHL games.
 
 #### Observations:
-The number of total games in the season is determined by the number of teams playing in that season.
-Game IDs are constructed differently for regular seasons and playoffs.
-`tqdm` is used to give a visual representation of the download progress for each season.
-In the `download_data()` function, there's a redundant check for playoffs (`if not playoffs:... else:...`).
-The script currently covers only seasons from 2016 to 2020, but it could be easily extended to other seasons if needed.
+The tool is an interactive debugging and exploration tool for NHL (National Hockey League) game data. It is designed to be used within a Jupyter notebook and offers an intuitive interface for exploring NHL game data for a specific season, with the ability to switch between regular season and playoffs.
 
 ### How to Use:
-Ensure you have the necessary libraries installed:
 
-`pip install requests tqdm`
+1- Setup Environment:
+    * Ensure you have Jupyter Notebook or Jupyter Lab installed on your system.
+    * Install the required Python libraries, including ipywidgets, numpy, matplotlib, and json, if you haven't already.
 
-Save the above code in a Python script named `1DataAcquisition.py`
+2- Download Data Files:
+    * Ensure you have the necessary NHL game data files available in a directory called nhl_data. These JSON files should contain the game data you want to explore.
 
-Run the script:
+3- Copy and Paste the Code:
+    * Copy the entire code provided in your question and paste it into a Jupyter Notebook cell.
 
-`python 1DataAcquisition.py`
+4- Run the Code:
+    * Execute the code cell in your Jupyter Notebook environment. This will initialize the NHLExplorer class and create an interactive tool for exploring NHL game data.
 
-Once executed, the data for each game will be saved as individual JSON files in a directory named `nhl_data`.
+5- Interact with the Tool:
+    * Once the code is executed, the tool's interface will appear in your notebook.
+    * Use the dropdown menus to select the desired season and game type (Regular or Playoffs).
+    * Adjust the game slider to choose a specific game ID.
+    * Adjust the event slider to select an event within the chosen game.
+    * The tool will display event coordinates on an ice rink image, along with event descriptions and game information.
 
-Note: It's crucial to ensure that you're not overloading the NHL API servers with numerous requests. Also, please do not store large amounts of data on Git repositories; it's not recommended.
+6- Explore NHL Game Data:
+    * Navigate through different events within games by moving the event slider.
+    * Switch between games and explore event data interactively.
+    * Observe event coordinates on the ice rink image and read event descriptions.
 
-And that's it! Now you have a straightforward tool to download NHL play-by-play data. Happy analyzing!
+7- Switch Season/Game Type:
+    * To explore NHL game data for a different season or game type, use the dropdown menus to make your selections.
+    * The tool will dynamically update the available games and events based on your choices.
+
+8- Note on Data Availability:
+    * The tool includes error handling for cases where data for a specific game may be unavailable, particularly in the 2019 Regular season.
+
+9- End Interaction:
+    * When you're done exploring NHL game data, you can close the Jupyter Notebook or clear the output of the code cell to end the tool's interaction.
 
 ### References:
 https://gitlab.com/dword4/nhlapi/-/blob/master/stats-api.md#game-ids
