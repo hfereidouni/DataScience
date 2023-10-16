@@ -286,7 +286,12 @@ The code defines a Python class called `NHLExplorer`, which is designed to inter
 The tool is an interactive debugging and exploration tool for NHL (National Hockey League) game data. It is designed to be used within a Jupyter notebook and offers an intuitive interface for exploring NHL game data for a specific season, with the ability to switch between regular season and playoffs.
 
 ![ScreenShot 1 of the IDT](ScreenShot1.png)
+
+According to the above-mentioned screen shot, at the beginning of each game, we can see the event 0 (including the game info) and then after swiping the event slider we can see the respective event info through the Textarea. 
+
 ![ScreenShot 2 of the IDT](ScreenShot2.png)
+
+In the screen shot mentioned above, we can see that the coordination of the peck at the specific event, the event descroption and so forth. 
 
 ### How to Use:
 
