@@ -331,6 +331,10 @@ In the screen shot mentioned above, we can see that the coordination of the even
 9. **End Interaction:**
     - When you're done exploring NHL game data, you can close the Jupyter Notebook or clear the output of the code cell to end the tool's interaction.
 
+### Files:
+
+**Related files in the codebase:** `2InteractiveDebuggingTool.py` and `2InteractiveDebuggingTool.ipynb`
+
 ### References:
 https://ipywidgets.readthedocs.io/en/latest/
 
