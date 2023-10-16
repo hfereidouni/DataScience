@@ -270,37 +270,17 @@ The purpose of the provided code is to create an interactive debugging and explo
 * `import json`: Imports the built-in json module, which is used for working with JSON data, including loading and parsing JSON files.
 
 
-#### Constants:
-`BASE_URL`: A string template of the API endpoint from where game data is fetched.
+#### Class and Functions:
 
-`OUTPUT_DIR`: The directory name where the downloaded JSON files are saved.
-
-Ensure Directories:
-The code checks if the `OUTPUT_DIR` exists, and if not, it creates the directory.
-
-#### Functions:
-`generate_game_ids(season, playoffs=False)`:
-
-Generates game IDs based on the given NHL season and specifies if the data is for playoffs or the regular season.
-Returns a list of game IDs for the specified season and type (playoffs or regular season).
-
-`download_data(game_id, playoffs=False)`:
-
-Fetches game data from the API using a given game ID and saves the data as a JSON file in the specified directory.
-This function doesn't return any value.
-
-#### Main Execution:
-The `if __name__ == "__main__"` block does the following:
-
-Iterates over the seasons from 2016 to 2020.
-For each season:
-- Announces the downloading of regular season data.
-- Uses `tqdm` to display a progress bar while downloading regular season games data.
-- Announces the completion of regular season data download.
-- Announces the downloading of playoff data.
-- Uses `tqdm` to display a progress bar while downloading playoff games data.
-- Announces the completion of playoff data download.
-- After iterating through all seasons, it prints "All done!" to indicate the end of the script's execution.
+The code defines a Python class called NHLExplorer, which is designed to interactively explore and visualize NHL game data using ipywidgets. Here's how the code works:
+* **Initialization:** The class is initialized with a specific NHL season year, and the default game type is set to "Regular." It creates several widgets, including Dropdowns for selecting the year and game type, IntSliders for selecting the game ID and event within the game, and a Textarea for displaying game information.
+* **Loading Game Data:** The load_game_data method loads game data based on the selected year, game type, and game ID. It uses JSON files containing NHL game data.
+* **Updating Year and Game Type:** The update_year and update_game_type methods are event handlers for changing the year and game type Dropdowns. They update the selected year and game type, reset relevant sliders, and update the event range.
+* **Updating Event Range:** The update_event_range method updates the maximum value of the event slider based on the selected game's data. It also handles special cases where data may be unavailable for specific games.
+* **Displaying Events:** The display_event method displays the selected event within the game using matplotlib plots. It loads game data, extracts event coordinates, and plots them on an ice rink image. Event types such as "Shot" and "Other Events" are distinguished by blue and red markers. Event descriptions and game metadata are displayed as well.
+* **Displaying Widgets:** The display_widgets method clears the notebook's output, displays all the interactive widgets, and updates the event range. It also calls display_event to show the selected event.
+* **Browsing Games:** The browse_games method sets up interactivity by observing changes in the game and event sliders. It calls display_widgets to display the widgets.
+* **Creating an Instance:** Finally, an instance of NHLExplorer is created for the 2016 season, and the browse_games method is called to initiate the interactive exploration of NHL games.
 
 #### Observations:
 The number of total games in the season is determined by the number of teams playing in that season.
