@@ -24,7 +24,7 @@ We've created a Python script for this task. Here's a breakdown of the code:
 
 
 
-<pre>
+```python
 
 import requests
 import json
@@ -117,7 +117,7 @@ if __name__ == "__main__":
 
 print("All done!")
 
-</pre>
+```
 
 ### Code Description:
 
