@@ -333,7 +333,7 @@ In the screen shot mentioned above, we can see that the coordination of the even
 
 ### Files:
 
-**Related files in the codebase:** `2InteractiveDebuggingTool.py` and `2InteractiveDebuggingTool.ipynb`
+**Related files in the codebase:** `2InteractiveDebuggingTool.py`, `2InteractiveDebuggingTool.ipynb` and `ice_rink.png`
 
 ### References:
 https://ipywidgets.readthedocs.io/en/latest/
