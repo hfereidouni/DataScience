@@ -288,39 +288,39 @@ The tool is an interactive debugging and exploration tool for NHL (National Hock
 ### How to Use:
 
 1- Setup Environment:
-    * Ensure you have Jupyter Notebook or Jupyter Lab installed on your system.
-    * Install the required Python libraries, including ipywidgets, numpy, matplotlib, and json, if you haven't already.
+    - Ensure you have Jupyter Notebook or Jupyter Lab installed on your system.
+    - Install the required Python libraries, including ipywidgets, numpy, matplotlib, and json, if you haven't already.
 
 2- Download Data Files:
-    * Ensure you have the necessary NHL game data files available in a directory called nhl_data. These JSON files should contain the game data you want to explore.
+    - Ensure you have the necessary NHL game data files available in a directory called nhl_data. These JSON files should contain the game data you want to explore.
 
 3- Copy and Paste the Code:
-    * Copy the entire code provided in your question and paste it into a Jupyter Notebook cell.
+    - Copy the entire code provided in your question and paste it into a Jupyter Notebook cell.
 
 4- Run the Code:
-    * Execute the code cell in your Jupyter Notebook environment. This will initialize the NHLExplorer class and create an interactive tool for exploring NHL game data.
+    - Execute the code cell in your Jupyter Notebook environment. This will initialize the NHLExplorer class and create an interactive tool for exploring NHL game data.
 
 5- Interact with the Tool:
-    * Once the code is executed, the tool's interface will appear in your notebook.
-    * Use the dropdown menus to select the desired season and game type (Regular or Playoffs).
-    * Adjust the game slider to choose a specific game ID.
-    * Adjust the event slider to select an event within the chosen game.
-    * The tool will display event coordinates on an ice rink image, along with event descriptions and game information.
+    - Once the code is executed, the tool's interface will appear in your notebook.
+    - Use the dropdown menus to select the desired season and game type (Regular or Playoffs).
+    - Adjust the game slider to choose a specific game ID.
+    - Adjust the event slider to select an event within the chosen game.
+    - The tool will display event coordinates on an ice rink image, along with event descriptions and game information.
 
 6- Explore NHL Game Data:
-    * Navigate through different events within games by moving the event slider.
-    * Switch between games and explore event data interactively.
-    * Observe event coordinates on the ice rink image and read event descriptions.
+    - Navigate through different events within games by moving the event slider.
+    - Switch between games and explore event data interactively.
+    - Observe event coordinates on the ice rink image and read event descriptions.
 
 7- Switch Season/Game Type:
-    * To explore NHL game data for a different season or game type, use the dropdown menus to make your selections.
-    * The tool will dynamically update the available games and events based on your choices.
+    - To explore NHL game data for a different season or game type, use the dropdown menus to make your selections.
+    - The tool will dynamically update the available games and events based on your choices.
 
 8- Note on Data Availability:
-    * The tool includes error handling for cases where data for a specific game may be unavailable, particularly in the 2019 Regular season.
+    - The tool includes error handling for cases where data for a specific game may be unavailable, particularly in the 2019 Regular season.
 
 9- End Interaction:
-    * When you're done exploring NHL game data, you can close the Jupyter Notebook or clear the output of the code cell to end the tool's interaction.
+    - When you're done exploring NHL game data, you can close the Jupyter Notebook or clear the output of the code cell to end the tool's interaction.
 
 ### References:
 https://gitlab.com/dword4/nhlapi/-/blob/master/stats-api.md#game-ids
