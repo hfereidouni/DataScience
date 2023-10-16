@@ -299,7 +299,7 @@ The tool is an interactive debugging and exploration tool for NHL (National Hock
     - Copy the ice rink image from the codebase and put it in the same directory with the code.
 
 4. **Run the Code:**
-    - Execute the code cell in the Jupyter Notebook environment. This will initialize the NHLExplorer class and create an interactive tool for exploring NHL game data.
+    - Execute the code cell in the Jupyter Notebook environment. This will initialize the `NHLExplorer` class and create an interactive tool for exploring NHL game data.
 
 5. **Interact with the Tool:**
     - Once the code is executed, the tool's interface will appear in the notebook.
@@ -318,7 +318,7 @@ The tool is an interactive debugging and exploration tool for NHL (National Hock
     - The tool will dynamically update the available games and events based on your choices.
 
 8. **Note on Data Availability:**
-    - The tool includes error handling for cases where data for a specific game may be unavailable, particularly in the 2019 Regular season.
+    - The tool includes error handling for cases where data for a specific game may be unavailable, particularly in the **2019 Regular season**.
 
 9. **End Interaction:**
     - When you're done exploring NHL game data, you can close the Jupyter Notebook or clear the output of the code cell to end the tool's interaction.
