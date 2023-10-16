@@ -291,7 +291,7 @@ According to the above-mentioned screen shot, at the beginning of each game, we 
 
 ![ScreenShot 2 of the IDT](ScreenShot2.png)
 
-In the screen shot mentioned above, we can see that the coordination of the puck at the specific event, the event descroption and so forth. 
+In the screen shot mentioned above, we can see that the coordination of the events, the events descroption and so forth. 
 
 ### How to Use:
 
