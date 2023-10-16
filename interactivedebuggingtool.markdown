@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Data Acquisition
-permalink: /milestone1/dataacquisition
+permalink: /milestone1/interactivedebuggingtool
 ---
 
 ## Interactive Debugging Tool
