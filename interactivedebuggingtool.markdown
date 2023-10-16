@@ -5,9 +5,9 @@ permalink: /milestone1/dataacquisition
 ---
 
 ## Interactive Debugging Tool
-Question: Implement an ipywidget that allows you to flip through all of the events, for every game of a given season, with the ability to switch between the regular season and playoffs. Draw the event coordinates on the provided ice rink image, similar to the example shown below (you can just print the event data when there are no coordinates). You may also print whatever information you find useful, such as game metadata/boxscores, and event summaries (but this is not required). Take a screenshot of the tool and add it to the blog post, accompanied with the code for the tool and a brief (1-2 sentences) description of what your tool does. You do not need to worry about embedding the tool into the blog post.
+**Question:** Implement an ipywidget that allows you to flip through all of the events, for every game of a given season, with the ability to switch between the regular season and playoffs. Draw the event coordinates on the provided ice rink image, similar to the example shown below (you can just print the event data when there are no coordinates). You may also print whatever information you find useful, such as game metadata/boxscores, and event summaries (but this is not required). Take a screenshot of the tool and add it to the blog post, accompanied with the code for the tool and a brief (1-2 sentences) description of what your tool does. You do not need to worry about embedding the tool into the blog post.
 
-Answer: The task involves creating an interactive debugging tool using ipywidgets in a Jupyter notebook to explore NHL game data. The tool allows you to navigate through events in different games of a given season, including regular season and playoffs. It displays event coordinates on an ice rink image and optionally shows other relevant information such as game metadata and event summaries. The goal is to create a user-friendly interface for exploring NHL game data.
+**Answer:** The task involves creating an interactive debugging tool using ipywidgets in a Jupyter notebook to explore NHL game data. The tool allows you to navigate through events in different games of a given season, including regular season and playoffs. It displays event coordinates on an ice rink image and optionally shows other relevant information such as game metadata and event summaries. The goal is to create a user-friendly interface for exploring NHL game data.
 
 Therefore, to accomplish this task, we need to:
 
@@ -295,13 +295,13 @@ The tool is an interactive debugging and exploration tool for NHL (National Hock
     - Ensure you have the necessary NHL game data files available in a directory called nhl_data. These JSON files should contain the game data you want to explore.
 
 3. **Copy and Paste the Code:**
-    - Copy the entire code provided in your question and paste it into a Jupyter Notebook cell.
+    - Copy the entire code provided in the question and paste it into a Jupyter Notebook cell.
 
 4. **Run the Code:**
-    - Execute the code cell in your Jupyter Notebook environment. This will initialize the NHLExplorer class and create an interactive tool for exploring NHL game data.
+    - Execute the code cell in the Jupyter Notebook environment. This will initialize the NHLExplorer class and create an interactive tool for exploring NHL game data.
 
 5. **Interact with the Tool:**
-    - Once the code is executed, the tool's interface will appear in your notebook.
+    - Once the code is executed, the tool's interface will appear in the notebook.
     - Use the dropdown menus to select the desired season and game type (Regular or Playoffs).
     - Adjust the game slider to choose a specific game ID.
     - Adjust the event slider to select an event within the chosen game.
