@@ -246,17 +246,17 @@ explorer.browse_games()
 
 The purpose of the provided code is to create an interactive debugging and exploration tool for NHL (National Hockey League) game data using ipywidgets in a Jupyter notebook. This tool serves several key purposes:
 
-1- Data Exploration: The primary purpose is to allow users to interactively explore and visualize NHL game data for a specific season. Users can select a season year and switch between regular season and playoff games.
+1. Data Exploration: The primary purpose is to allow users to interactively explore and visualize NHL game data for a specific season. Users can select a season year and switch between regular season and playoff games.
 
-2- Event Visualization: The code enables users to navigate through events within each game, displaying event coordinates on an ice rink image. Different event types are distinguished on the image.
+2. Event Visualization: The code enables users to navigate through events within each game, displaying event coordinates on an ice rink image. Different event types are distinguished on the image.
 
-3- Game Information: The tool provides additional information such as event descriptions, game metadata, box scores, and event summaries for the selected events.
+3. Game Information: The tool provides additional information such as event descriptions, game metadata, box scores, and event summaries for the selected events.
 
-4- User-Friendly Interface: It offers a user-friendly interface with dropdowns for selecting the season and game type (Regular or Playoffs), sliders for choosing the game and event, and a text area to display information.
+4. User-Friendly Interface: It offers a user-friendly interface with dropdowns for selecting the season and game type (Regular or Playoffs), sliders for choosing the game and event, and a text area to display information.
 
-5- Flexibility: Users can easily switch between different games and events within those games, making it a versatile tool for exploring various aspects of NHL games.
+5. Flexibility: Users can easily switch between different games and events within those games, making it a versatile tool for exploring various aspects of NHL games.
 
-6- Debugging and Analysis: While the primary goal is exploration, the tool can also be used for debugging and analysis of NHL game data.
+6. Debugging and Analysis: While the primary goal is exploration, the tool can also be used for debugging and analysis of NHL game data.
 
 
 
