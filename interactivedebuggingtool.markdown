@@ -296,6 +296,7 @@ The tool is an interactive debugging and exploration tool for NHL (National Hock
 
 3. **Copy and Paste the Code:**
     - Copy the entire code provided in the question and paste it into a Jupyter Notebook cell.
+    - Copy the ice rink image from the codebase and put it in the same directory with the code.
 
 4. **Run the Code:**
     - Execute the code cell in the Jupyter Notebook environment. This will initialize the NHLExplorer class and create an interactive tool for exploring NHL game data.
