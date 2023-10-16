@@ -262,12 +262,12 @@ The purpose of the provided code is to create an interactive debugging and explo
 
 #### Imports:
 
-*`ipywidgets as widgets`: Imports the ipywidgets library and renames it as widgets. This library is used to create interactive widgets in Jupyter notebooks, facilitating user interaction.
-*`numpy as np`: Imports the NumPy library, aliased as np. NumPy is widely used for numerical and array operations, and it may be used for various calculations in the code.
-*`from IPython.display import display, clear_output`: Imports specific functions, display and clear_output, from the IPython.display module. These functions are used to display widgets and clear notebook output for updates.
-*`import matplotlib.pyplot as plt`: Imports the pyplot module from the Matplotlib library, aliased as plt. Matplotlib is a popular library for creating various types of plots and visualizations.
-*`import matplotlib.image as mpimg`: Imports the image submodule of Matplotlib, aliased as mpimg. This submodule is used for reading and displaying images within the Jupyter notebook.
-*`import json`: Imports the built-in json module, which is used for working with JSON data, including loading and parsing JSON files.
+* `ipywidgets as widgets`: Imports the ipywidgets library and renames it as widgets. This library is used to create interactive widgets in Jupyter notebooks, facilitating user interaction.
+* `numpy as np`: Imports the NumPy library, aliased as np. NumPy is widely used for numerical and array operations, and it may be used for various calculations in the code.
+* `from IPython.display import display, clear_output`: Imports specific functions, display and clear_output, from the IPython.display module. These functions are used to display widgets and clear notebook output for updates.
+* `import matplotlib.pyplot as plt`: Imports the pyplot module from the Matplotlib library, aliased as plt. Matplotlib is a popular library for creating various types of plots and visualizations.
+* `import matplotlib.image as mpimg`: Imports the image submodule of Matplotlib, aliased as mpimg. This submodule is used for reading and displaying images within the Jupyter notebook.
+* `import json`: Imports the built-in json module, which is used for working with JSON data, including loading and parsing JSON files.
 
 
 #### Constants:
