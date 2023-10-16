@@ -7,4 +7,8 @@ title: Project
 ---
 
 ## Welcome to B-04 DS Project
-This post was generated using Jekyll and Markdown.
+
+### Milestones:
+- [Milestone 1](milestone1)
+- [Milestone 2](milestone2)
+- [Milestone 3](milestone3)
