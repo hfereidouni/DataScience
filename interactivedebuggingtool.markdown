@@ -289,10 +289,10 @@ The tool is an interactive debugging and exploration tool for NHL (National Hock
 
 1. **Setup Environment:**
     - Ensure you have Jupyter Notebook or Jupyter Lab installed on your system.
-    - Install the required Python libraries, including ipywidgets, numpy, matplotlib, and json, if you haven't already.
+    - Install the required Python libraries, including `ipywidgets`, `numpy`, `matplotlib`, and `json`, if you haven't already.
 
 2. **Download Data Files:**
-    - Ensure you have the necessary NHL game data files available in a directory called nhl_data. These JSON files should contain the game data you want to explore.
+    - Ensure you have the necessary NHL game data files available in a directory called `nhl_data`. These JSON files should contain the game data you want to explore.
 
 3. **Copy and Paste the Code:**
     - Copy the entire code provided in the question and paste it into a Jupyter Notebook cell.
@@ -324,5 +324,6 @@ The tool is an interactive debugging and exploration tool for NHL (National Hock
     - When you're done exploring NHL game data, you can close the Jupyter Notebook or clear the output of the code cell to end the tool's interaction.
 
 ### References:
-https://gitlab.com/dword4/nhlapi/-/blob/master/stats-api.md#game-ids
+https://ipywidgets.readthedocs.io/en/latest/
+https://www.nhl.com/gamecenter/tor-vs-wpg/2017/10/04/2017020001/playbyplay
 
