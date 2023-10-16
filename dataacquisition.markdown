@@ -188,7 +188,7 @@ And that's it! Now you have a straightforward tool to download NHL play-by-play 
 
 ### Files:
 
-**File name in the codebase:** `1DataAcquisition.py` and `1DataAcquisition.ipynb`
+**Related files in the codebase:** `1DataAcquisition.py` and `1DataAcquisition.ipynb`
 
 ### References:
 https://gitlab.com/dword4/nhlapi/-/blob/master/stats-api.md#game-ids
