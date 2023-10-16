@@ -325,5 +325,6 @@ The tool is an interactive debugging and exploration tool for NHL (National Hock
 
 ### References:
 https://ipywidgets.readthedocs.io/en/latest/
+
 https://www.nhl.com/gamecenter/tor-vs-wpg/2017/10/04/2017020001/playbyplay
 
