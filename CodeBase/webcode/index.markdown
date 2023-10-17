@@ -570,6 +570,15 @@ In the Fig. 2 mentioned above, we can see that the coordination of the events, t
 <ul><li>When you're done exploring NHL game data, you can close the Jupyter Notebook or clear the output of the code cell to end the tool's interaction.</li></ul>
 
 </ul>
+<li><strong>
+References:</strong>
+</li>
+https://ipywidgets.readthedocs.io/en/latest/
+
+https://www.nhl.com/gamecenter/tor-vs-wpg/2017/10/04/2017020001/playbyplay
+
+
+
 <!-- main -->
 </ul>
 <!-- main -->
