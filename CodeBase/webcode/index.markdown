@@ -31,9 +31,7 @@ YYYY: First 4 digits identify the season. TT: Type of game (02 = regular season,
 <li>Data Download: Using the generated game IDs, fetch the data from the NHL API and save it as JSON.</li>
 </ul>
 <p>
-
-
-```python
+<pre>
 import requests
 import json
 import os
@@ -125,8 +123,7 @@ if __name__ == "__main__":
 
 print("All done!")
 
-```
-
+</pre>
 </p>
 <p>
 <li><strong>Code Description/purpose:</strong></li>
@@ -255,8 +252,7 @@ The task involves creating an interactive debugging tool using ipywidgets in a J
 </li>
 </ul>
 <li><strong>The Code:</strong></li>
-
-```python
+<pre>
 # Import necessary libraries and modules
 import ipywidgets as widgets
 import numpy as np
@@ -476,8 +472,8 @@ class NHLExplorer:
 # Create an instance of NHLExplorer and start browsing games for the 2016 season
 explorer = NHLExplorer(2016)
 explorer.browse_games()
-```
 
+</pre>
 <li><strong>Code Description/Purpose:</strong></li>
 The purpose of the provided code is to create an interactive debugging and exploration tool for NHL (National Hockey League) game data using ipywidgets in a Jupyter notebook. This tool serves several key purposes:
 <ul>
@@ -518,7 +514,7 @@ The tool is an interactive debugging and exploration tool for NHL (National Hock
 <figcaption style="font-size: 11px; font-style: italic; text-align: center; font-weight: bold;">Fig. 1</figcaption>
 </figure>
 </p>
-According to the above-mentioned (Fig. 1), at the beginning of each game, we can see the event 0 (including the game info) and then after swiping the event slider we can see the respective event info through the Textarea. 
+According to the above-mentioned Fig. 1, at the beginning of each game, we can see the event 0 (including the game info) and then after swiping the event slider we can see the respective event info through the Textarea. 
 
 <p>
 <figure>
@@ -570,15 +566,6 @@ In the Fig. 2 mentioned above, we can see that the coordination of the events, t
 <ul><li>When you're done exploring NHL game data, you can close the Jupyter Notebook or clear the output of the code cell to end the tool's interaction.</li></ul>
 
 </ul>
-<li><strong>
-References:</strong>
-</li>
-https://ipywidgets.readthedocs.io/en/latest/
-
-https://www.nhl.com/gamecenter/tor-vs-wpg/2017/10/04/2017020001/playbyplay
-
-
-
 <!-- main -->
 </ul>
 <!-- main -->
@@ -672,15 +659,25 @@ The data in the form of bar in the image above gives ralationship between type o
 <ol>
 <li>
  What appears to be the most dangerous type of shot?
-<p>Answer: For season 2016-2017, Deflected is the most dangerous one, its chance of shot has gotton 19.8% which is the highest among all.</p>
+<p><strong>Answer: </strong>For season 2016-2017, Deflected is the most dangerous one, its chance of shot has gotton 19.8% which is the highest among all.</p>
 </li>
 <li>
  The most common type of shot?
-<p>Answer: Wrist shot is the most common type of shot.</p>
+<p><strong>Answer:</strong> Wrist shot is the most common type of shot.</p>
 </li>
+<li>Has there been much change over the past three seasons?</li>
+<p><strong>Answer:</strong></p>
+<p>One significant change could be the chance of goal at long distances has decreased, in long distance, the high chance area has moved from [180,195] to [135,150].</p>
 <li>
  Why did you choose this figure?
-<p>Answer: This figure shows number of shots, goals and chance of goal for each type of shot.</p>
+<p><strong>Answer:</strong>
+<p>
+Because the chance of goal in each area can well represent the relationship of chance of goal and distance if the gap of each interval is small.
+</p>
+<p>
+Bar plot can clearly show how different the chance of goals are for each interval of ditance.
+</p>
+</p>
 </li>
 </ol>
 </li>
@@ -809,11 +806,37 @@ Such a control may be justified by the following:</p>
 <li>Balance/ Imbalance in the left-handed and right-handed players in a team</li>
 </ul>
 
-
-
-
-
+</p>
+<p>
+<li><strong>Graph outputs in BASH</strong></li>
+</p>
+<p>
+<img src="button.png" alt = "Alt text">
+<figcaption style="font-size: 11px; font-style: italic; text-align: center; font-weight: bold;">Button visible in Bash.</figcaption>
+</p>
+<p>
+We have used Plotly with Dash to generate the interactive figures for different NHL seasons.
+<ul>
+<li><strong>Insights</strong></li>
+<ol>
+<li>We have used normal distribution on excess_shot_frequency to get a smooth estimate of the required values.</li>
+</ol>
+<li><strong>Functions</strong></li>
+<ol>
+<li>get_x_y() : Extracts the coordinates x & y from a dictionary to separate values.</li>
+<li>prepare_shot_pic() : Prepares the rink image compatible to the plotly graph. Includes cropping and transformation of the nhl_rink.png from 1100 X 467 to 467 X 550. </li>
+<li>compute_league_shot_rate_per_hour(): Computes league shot rate per hour for all teams.</li>
+<li>compute_excess_shot_rate_per_hour(): Computes excess shot rate per hour for all teams.</li>
+<li>plot_shot_map(): Creates shot map for a single team from start to end year</li>
+</ol>
+<li><strong>Libraries</strong></li>
+<p>
+Plotly, scipy, Dash, PIL
+</p>
 </ul>
+</p>
+
+
 <!-- main -->
-</ul>
+
 <!-- main -->
