@@ -31,7 +31,9 @@ YYYY: First 4 digits identify the season. TT: Type of game (02 = regular season,
 <li>Data Download: Using the generated game IDs, fetch the data from the NHL API and save it as JSON.</li>
 </ul>
 <p>
-<pre>
+
+
+```python
 import requests
 import json
 import os
@@ -123,7 +125,8 @@ if __name__ == "__main__":
 
 print("All done!")
 
-</pre>
+```
+
 </p>
 <p>
 <li><strong>Code Description/purpose:</strong></li>
@@ -252,7 +255,8 @@ The task involves creating an interactive debugging tool using ipywidgets in a J
 </li>
 </ul>
 <li><strong>The Code:</strong></li>
-<pre>
+
+```python
 # Import necessary libraries and modules
 import ipywidgets as widgets
 import numpy as np
@@ -472,8 +476,8 @@ class NHLExplorer:
 # Create an instance of NHLExplorer and start browsing games for the 2016 season
 explorer = NHLExplorer(2016)
 explorer.browse_games()
+```
 
-</pre>
 <li><strong>Code Description/Purpose:</strong></li>
 The purpose of the provided code is to create an interactive debugging and exploration tool for NHL (National Hockey League) game data using ipywidgets in a Jupyter notebook. This tool serves several key purposes:
 <ul>
@@ -514,7 +518,7 @@ The tool is an interactive debugging and exploration tool for NHL (National Hock
 <figcaption style="font-size: 11px; font-style: italic; text-align: center; font-weight: bold;">Fig. 1</figcaption>
 </figure>
 </p>
-According to the above-mentioned Fig. 1, at the beginning of each game, we can see the event 0 (including the game info) and then after swiping the event slider we can see the respective event info through the Textarea. 
+According to the above-mentioned (Fig. 1), at the beginning of each game, we can see the event 0 (including the game info) and then after swiping the event slider we can see the respective event info through the Textarea. 
 
 <p>
 <figure>
