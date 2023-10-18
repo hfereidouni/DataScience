@@ -63,6 +63,22 @@ def prepare_shot_pic(path):
 """
 Shot data preparation
 """
+def filter_offensive_shot_data(shot_data):
+    """
+    Filter out the offensive zone coordinates.
+
+    Paramters:
+    shot_data: Dataframe for shots
+
+    Returns:
+    offensive_shot_df: Offensitve shot df
+    """
+    attacking_shot_with_right_rink_side_condition = (shot_data.rink_side=="right") & (shot_data.coordinate_x < 0)
+    attacking_shot_with_left_rink_side_condition = (shot_data.rink_side=="left") & (shot_data.coordinate_x > 0)
+    
+    offensive_shot_df = shot_data[attacking_shot_with_right_rink_side_condition | attacking_shot_with_left_rink_side_condition]
+    
+    return offensive_shot_df
 
 def compute_league_shot_rate_per_hour(df, start_year, end_year):
     """
@@ -121,6 +137,7 @@ def compute_excess_shot_rate_per_hour(df, start_year, end_year):
     q = q.loc[q.play_type=="Shot",:]
     
     #for shot map prep
+    q = filter_offensive_shot_data(q)
     q.loc[:, 'coordinate_x'] = np.abs(q.coordinate_x)
     res=q.groupby(by=["attack_team_name", 'coordinate_x', 'coordinate_y'])['period'].count().reset_index()
     # calculate frequency

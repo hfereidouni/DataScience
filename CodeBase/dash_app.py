@@ -15,7 +15,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from advanced_visualization import compute_excess_shot_rate_per_hour, prepare_shot_pic
 
-EXTRACTED_DATA_PATH = "../../extracted_nhl_data_tidy_final.csv"
+EXTRACTED_DATA_PATH = "extracted_nhl_data_tidy_final.csv"
 RINK_IMAGE_PATH = 'nhl_rink.png'
 
 """
