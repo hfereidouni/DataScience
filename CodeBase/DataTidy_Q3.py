@@ -119,7 +119,8 @@ def json_reader(json_path:str) -> pd.DataFrame:
                             period_time_rem,
                             coordinate,shooter_name,
                             goalie_name,
-                            empty_Net,strength]
+                            empty_Net,strength,
+                            rink_side]
                 
                 #total list for all events/games
                 rows.append(item_row)
@@ -140,7 +141,8 @@ def json_reader(json_path:str) -> pd.DataFrame:
                                         "shooter_name",
                                         "goalie_name",
                                         "empty_Net",
-                                        "strength"]])
+                                        "strength",
+                                        "rink_side"]])
     return df
 
 def read_a_season(path:str,start_year:int)->pd.DataFrame:
