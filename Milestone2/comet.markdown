@@ -7,10 +7,12 @@ Comet.ml is a powerful tool for tracking, managing, and optimizing your machine 
 
 ### Step 1: Create a Comet.ml Account
 **For All Team Members**: Sign up for a Comet.ml account using your academic email via Comet.ml signup.
+
 **Claim Your Free Academic Tier**: After signing up, claim your free academic tier benefits.
 
 ### Step 2: Establish a Shared Workspace
 **Designate a Workspace Host**: One team member should create a workspace in Comet.ml.
+
 **Add Team Members**: The workspace host should add all team members and the TA account ift6758-2023 to the workspace. This is done in the workspace settings.
 
 ### Step 3: Install Comet.ml SDK
@@ -29,6 +31,7 @@ from comet_ml import Experiment
 
 ### Step 2: Configure Environment Variables
 **Set API Key**: Store your Comet.ml API key in an environment variable named COMET_API_KEY.
+
 **Access API Key**: Use the os package in Python to access the API key.
 
 ```python
@@ -75,6 +78,7 @@ exp.log_model("model_name", "model.joblib")
 
 ### Step 6: Review and Analyze
 **Accessing Dashboard**: Review your experiments on the Comet.ml dashboard.
+
 **Collaboration**: Share experiment links with your team for collaborative analysis.
 
 
