@@ -6,30 +6,32 @@ Comet.ml is a powerful tool for tracking, managing, and optimizing your machine 
 ## Setting Up Comet.ml
 
 ### Step 1: Create a Comet.ml Account
-For All Team Members: Sign up for a Comet.ml account using your academic email via Comet.ml signup.
-Claim Your Free Academic Tier: After signing up, claim your free academic tier benefits.
+**For All Team Members**: Sign up for a Comet.ml account using your academic email via Comet.ml signup.
+**Claim Your Free Academic Tier**: After signing up, claim your free academic tier benefits.
 
 ### Step 2: Establish a Shared Workspace
-Designate a Workspace Host: One team member should create a workspace in Comet.ml.
-Add Team Members: The workspace host should add all team members and the TA account ift6758-2023 to the workspace. This is done in the workspace settings.
+**Designate a Workspace Host**: One team member should create a workspace in Comet.ml.
+**Add Team Members**: The workspace host should add all team members and the TA account ift6758-2023 to the workspace. This is done in the workspace settings.
 
 ### Step 3: Install Comet.ml SDK
-Install the Comet.ml Python SDK in your environment:
+Install the `Comet.ml` Python SDK in your environment:
 
 `pip install comet_ml`
 
 ## Integrating Comet.ml with Scikit-Learn
 
 ### Step 1: Import Comet.ml
-Import comet_ml at the top of your Python script, before other libraries like sklearn.
+Import `comet_ml`at the top of your Python script, before other libraries like sklearn.
 
-`from comet_ml import Experiment`
+```python
+from comet_ml import Experiment
+```
 
 ### Step 2: Configure Environment Variables
-Set API Key: Store your Comet.ml API key in an environment variable named COMET_API_KEY.
-Access API Key: Use the os package in Python to access the API key.
+**Set API Key**: Store your Comet.ml API key in an environment variable named COMET_API_KEY.
+**Access API Key**: Use the os package in Python to access the API key.
 
-```
+```python
 import os
 api_key = os.environ.get('COMET_API_KEY')
 ```
@@ -37,7 +39,7 @@ api_key = os.environ.get('COMET_API_KEY')
 ### Step 3: Create and Configure an Experiment
 Initialize a new experiment with your API key, project name, and workspace:
 
-```
+```python
 exp = Experiment(
     api_key=api_key,
     project_name='your_project_name',
@@ -46,28 +48,35 @@ exp = Experiment(
 ```
 
 ### Step 4: Tracking Experiments
-Log Metrics: Use exp.log_metrics() to log metrics like accuracy, loss, etc.
+**Log Metrics**: Use exp.log_metrics() to log metrics like accuracy, loss, etc.
 
-`exp.log_metrics({"accuracy": accuracy_score, "loss": loss_value})`
+```python
+exp.log_metrics({"accuracy": accuracy_score, "loss": loss_value})
+```
 
-Log Parameters: Log model parameters and hyperparameters.
+**Log Parameters**: Log model parameters and hyperparameters.
 
-`exp.log_parameters({"C": 1.0, "kernel": "linear"})`
+```python
+exp.log_parameters({"C": 1.0, "kernel": "linear"})
+```
 
 ### Step 5: Saving and Registering Models
-`Save Model Locally`: Save your scikit-learn model using joblib or pickle.
+**Save Model Locally**: Save your scikit-learn model using joblib or pickle.
 
-```
+```python
 from joblib import dump
 dump(your_model, 'model.joblib')
 ```
-Log Model in Comet.ml: Use exp.log_model() to log the model in Comet.ml.
+**Log Model in Comet.ml**: Use exp.log_model() to log the model in Comet.ml.
 
+```python
 exp.log_model("model_name", "model.joblib")
+```
 
 ### Step 6: Review and Analyze
-`Accessing Dashboard`: Review your experiments on the Comet.ml dashboard.
-`Collaboration`: Share experiment links with your team for collaborative analysis.
+**Accessing Dashboard**: Review your experiments on the Comet.ml dashboard.
+**Collaboration**: Share experiment links with your team for collaborative analysis.
+
 
 ## Collaborative Use of Shared Workspace and API
 
