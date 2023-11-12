@@ -76,4 +76,4 @@ Our team has set up a shared workspace in Comet.ml under the username `hfereidou
 
 ## Conclusion
 
-By following these steps, your team can effectively use Comet.ml to track machine learning experiments using scikit-learn. This setup ensures that all experiments are logged and reproducible, facilitating a more organized and collaborative project environment. Remember to frequently consult Comet.ml's documentation for specific features and advanced usage.
+By following these steps, our team can effectively use Comet.ml to track machine learning experiments using scikit-learn. This setup ensures that all experiments are logged and reproducible, facilitating a more organized and collaborative project environment. Remember to frequently consult Comet.ml's documentation for specific features and advanced usage.
