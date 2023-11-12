@@ -1,4 +1,4 @@
-# Question 1: Comet.ml
+# Part 1: Comet.ml
 In subsequent tasks, you will be asked to reference experiment entries in your comet.ml workspace which are tied to the models that produced specific figures.
 
 
