@@ -11,10 +11,12 @@ from sklearn import metrics
 from sklearn.model_selection import train_test_split
 from xgboost import XGBClassifier
 from sklearn.calibration import CalibrationDisplay
+from sklearn.preprocessing import OneHotEncoder
+
 
 from joblib import dump, load
 
-def split_data(train_val_data,test_size,dropna):
+def split_data(train_val_data,features,test_size,dropna):
     #drop NAN if necessary
     if dropna:
         train_val_data = train_val_data[train_val_data['shot_dist'].notna() & train_val_data['angle_net'].notna()]
@@ -23,8 +25,8 @@ def split_data(train_val_data,test_size,dropna):
     train, val = train_test_split(train_val_data, test_size=test_size,random_state=0)
 
     #Split X and Y
-    train_X = train[['shot_dist','angle_net']]
-    val_X =  val[['shot_dist','angle_net']]
+    train_X = train[features]
+    val_X =  val[features]
     train_Y = train[['is_goal']]
     val_Y =  val[['is_goal']]
 
@@ -33,8 +35,10 @@ def split_data(train_val_data,test_size,dropna):
 def roc_auc_plot(val_Y,val_res,model_name,sub_title):
     fpr,tpr,threshold = metrics.roc_curve(val_Y,val_res[:,1])
 
+    auc = metrics.auc(fpr,tpr)
+
     plt.title(f'ROC/AUC for {model_name} trained on {sub_title}')
-    plt.plot(fpr,tpr,'y',label=f"{sub_title}, AUC =%0.2f"%metrics.auc(fpr,tpr))
+    plt.plot(fpr,tpr,'y',label=f"{sub_title}, AUC =%0.2f"%auc)
     plt.plot([0, 1], [0, 1],'r--')
     plt.xlim([-0.05, 1.05])
     plt.ylim([-0.05, 1.05])
@@ -43,7 +47,7 @@ def roc_auc_plot(val_Y,val_res,model_name,sub_title):
     plt.grid(True)
     plt.legend(loc="lower right")
 
-    return fpr,tpr,threshold
+    return fpr,tpr,threshold,auc
 
 def helper_df(val_Y,val_res):
     df = val_Y.copy()
@@ -68,4 +72,12 @@ def helper_df(val_Y,val_res):
     df['goal_prob_cumulative_sum'] = df['#goal/#goal+#shot'].cumsum()
     df['cum_percent'] = 100*(df['goal_prob_cumulative_sum'] / df['goal_prob_sum'])
 
+    return df
+
+def onehot_generator(column):
+    #ref:https://stackoverflow.com/questions/69302224/how-to-one-hot-encode-a-dataframe-column-in-python
+    one_hot_encoder = OneHotEncoder()
+    values = one_hot_encoder.fit_transform(column)
+
+    df = pd.DataFrame(values.toarray(),columns=one_hot_encoder.get_feature_names_out()).astype(int)
     return df

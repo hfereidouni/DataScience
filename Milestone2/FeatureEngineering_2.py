@@ -270,8 +270,14 @@ def json_reader(json_path:str) -> pd.DataFrame:
                             coordinate,shooter_name,
                             goalie_name,
                             empty_Net,strength,
-                            rink_side,last_event_type, x_coord_last_event, y_coord_last_event, Time_from_the_last_event, Distance_from_the_last_event,
-                                      rebound,change_shot_angle, speed]
+                            rink_side,last_event_type, 
+                            x_coord_last_event,
+                            y_coord_last_event,
+                            Time_from_the_last_event,
+                            Distance_from_the_last_event,
+                            rebound,
+                            change_shot_angle,
+                            speed,x,y]
 
 
                 #total list for all events/games
@@ -302,7 +308,7 @@ def json_reader(json_path:str) -> pd.DataFrame:
                                         'Distance_from_the_last_event',
                                         'Rebound',
                                         'change_shot_angle',
-                                        'Speed'
+                                        'Speed','x','y'
                                         ])
         
         df['angle_net'] = df.apply(lambda row: shot_angle(row['coordinate'].get('y', 0), row['shot_dist'], row['rink_side']) if isinstance(row['coordinate'], dict) else 0, axis=1)
