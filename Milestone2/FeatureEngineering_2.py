@@ -32,68 +32,69 @@ def shot_angle(y, distance, rink_side):
     
     return angle
 
-df_new_features = pd.DataFrame(columns=['last_event_type', 'x_coord_last_event', 'y_coord_last_event', 'Time_from_the_last_event', 'Distance_from_the_last_event',
-                                         'Rebound', 'Speed'])
 
-def new_features(json_path:str, df) -> pd.DataFrame:
-    with open(json_path) as f:
+
+# def new_features(json_path:str,df) -> pd.DataFrame:
+#     df_new_features = pd.DataFrame(columns=['last_event_type', 'x_coord_last_event', 'y_coord_last_event', 'Time_from_the_last_event', 'Distance_from_the_last_event',
+#                                          'Rebound', 'Speed'])
+#     with open(json_path) as f:
         
-        game_json = json.load(f)
+#         game_json = json.load(f)
 
-        games = game_json['liveData']['plays']['allPlays']
+#         games = game_json['liveData']['plays']['allPlays']
 
-    for index,play in range(len(games)):
-        for i in range(len(games)):
+#     for index,play in enumerate(games):
+#         # for i in range(len(games)):
 
-            # last event type
-            previous_event = games[index - 1]
-            last_event_type = previous_event['result']['event'] if index > 0 else None
+#             # last event type
+#             previous_event = games[index - 1]
+#             last_event_type = previous_event['result']['event'] if index > 0 else None
 
             
-            #Co-ordinates of the last event
-            x = play['coordinates']['x'] if 'x' in play['coordinates'] else None
-            y = play['coordinates']['y'] if 'y' in play['coordinates'] else None
+#             #Co-ordinates of the last event
+#             x = play['coordinates']['x'] if 'x' in play['coordinates'] else None
+#             y = play['coordinates']['y'] if 'y' in play['coordinates'] else None
 
-            x_coord_last_event = previous_event['coordinates']['x'] if 'x' in previous_event['coordinates'] else None
-            y_coord_last_event = previous_event['coordinates']['y'] if 'y' in previous_event['coordinates'] else None
-
-
-            # time from the last event (seconds)
-            about = play['about']
-            period = about['period']
-            period_time = about['periodTime']
-            minutes_time = (period - 1) * 20
-            seconds_time = int(period_time.split(':')[0]) * 60 + int(period_time.split(':')[1])
-            game_time = minutes_time + seconds_time         
-
-            prev_about = previous_event['about']
-            prev_period = previous_event['about']['period']
-            prev_period_time = prev_about['periodTime']
-            prev_minutes_time = (prev_period - 1) * 20
-            prev_seconds_time = int(prev_period_time.split(':')[0]) * 60 + int(prev_period_time.split(':')[1])
-            prev_gameTime = prev_minutes_time + prev_seconds_time
-
-            Time_from_the_last_event = game_time - prev_gameTime
-
-            # Distance from the last event
-            if all(coord is not None for coord in [x,y, x_coord_last_event, y_coord_last_event]):
-                Distance_from_the_last_event = distance.euclidean([x, y], [x_coord_last_event, y_coord_last_event])
-            else:
-                Distance_from_the_last_event = None
-
-            # Rebound
-            rebound = True if last_event_type == 'Shot' else False 
-
-            # Speed
-            speed = Distance_from_the_last_event / Time_from_the_last_event if Distance_from_the_last_event is not None and Time_from_the_last_event != 0 else None
+#             x_coord_last_event = previous_event['coordinates']['x'] if 'x' in previous_event['coordinates'] else None
+#             y_coord_last_event = previous_event['coordinates']['y'] if 'y' in previous_event['coordinates'] else None
 
 
-            df_new_features.loc[i] = [last_event_type, x_coord_last_event, y_coord_last_event, Time_from_the_last_event, Distance_from_the_last_event,
-                                      rebound, speed]
+#             # time from the last event (seconds)
+#             about = play['about']
+#             period = about['period']
+#             period_time = about['periodTime']
+#             minutes_time = (period - 1) * 20
+#             seconds_time = int(period_time.split(':')[0]) * 60 + int(period_time.split(':')[1])
+#             game_time = minutes_time + seconds_time         
 
-            final_df = pd.concat([df,df_new_features], axis =1)
+#             prev_about = previous_event['about']
+#             prev_period = previous_event['about']['period']
+#             prev_period_time = prev_about['periodTime']
+#             prev_minutes_time = (prev_period - 1) * 20
+#             prev_seconds_time = int(prev_period_time.split(':')[0]) * 60 + int(prev_period_time.split(':')[1])
+#             prev_gameTime = prev_minutes_time + prev_seconds_time
 
-            return final_df
+#             Time_from_the_last_event = game_time - prev_gameTime
+
+#             # Distance from the last event
+#             if all(coord is not None for coord in [x,y, x_coord_last_event, y_coord_last_event]):
+#                 Distance_from_the_last_event = distance.euclidean([x, y], [x_coord_last_event, y_coord_last_event])
+#             else:
+#                 Distance_from_the_last_event = None
+
+#             # Rebound
+#             rebound = True if last_event_type == 'Shot' else False 
+
+#             # Speed
+#             speed = Distance_from_the_last_event / Time_from_the_last_event if Distance_from_the_last_event is not None and Time_from_the_last_event != 0 else None
+
+
+#             df_new_features.loc[index] = [last_event_type, x_coord_last_event, y_coord_last_event, Time_from_the_last_event, Distance_from_the_last_event,
+#                                       rebound, speed]
+
+#             final_df = pd.concat([df,df_new_features], axis =1)
+
+#             return final_df
 
 
 def json_reader(json_path:str) -> pd.DataFrame:
@@ -129,9 +130,10 @@ def json_reader(json_path:str) -> pd.DataFrame:
 
         rows = []
         # gathering shots' and goals' informations
-        for play in plays:
+        for i,play in enumerate(plays):
             item_row = []
             if play["result"]["event"] == "Shot" or play["result"]["event"]=="Goal":
+
                 play_idx = play["about"]["eventIdx"]
                 period = play["about"]["period"]
                 period_type = play["about"]["periodType"]
@@ -193,7 +195,66 @@ def json_reader(json_path:str) -> pd.DataFrame:
                         shot_dist = np.linalg.norm(np.array([coordinate["x"],coordinate["y"]]) - np.array(LEFT_NET_COOR))
                     else:
                         shot_dist = None
-                    
+                
+                            #data engineering 2:
+                if i>0:
+                    previous_event = plays[i-1]
+                    last_event_type = previous_event['result']['event']
+
+                    x = play['coordinates']['x'] if 'x' in play['coordinates'] else None
+                    y = play['coordinates']['y'] if 'y' in play['coordinates'] else None
+
+                    x_coord_last_event = previous_event['coordinates']['x'] if 'x' in previous_event['coordinates'] else None
+                    y_coord_last_event = previous_event['coordinates']['y'] if 'y' in previous_event['coordinates'] else None
+
+                    # time from the last event (seconds)
+                    about = play['about']
+                    period = about['period']
+                    period_time = about['periodTime']
+                    minutes_time = (period - 1) * 20
+                    seconds_time = int(period_time.split(':')[0]) * 60 + int(period_time.split(':')[1])
+                    game_time = minutes_time + seconds_time
+
+                    prev_about = previous_event['about']
+                    prev_period = previous_event['about']['period']
+                    prev_period_time = prev_about['periodTime']
+                    prev_minutes_time = (prev_period - 1) * 20
+                    prev_seconds_time = int(prev_period_time.split(':')[0]) * 60 + int(prev_period_time.split(':')[1])
+                    prev_gameTime = prev_minutes_time + prev_seconds_time
+
+                    Time_from_the_last_event = game_time - prev_gameTime
+                    # Distance from the last event
+                    if all(coord is not None for coord in [x,y, x_coord_last_event, y_coord_last_event]):
+                        Distance_from_the_last_event = distance.euclidean([x, y], [x_coord_last_event, y_coord_last_event])
+                    else:
+                        Distance_from_the_last_event = None
+
+                    # Rebound
+                    rebound = True if last_event_type == 'Shot' else False 
+
+                    # change in shot angle
+                    change_shot_angle=None
+                    if rebound == True:
+                        last_shot_dist = None
+                        if x!=None and y!= None and x_coord_last_event!=None and y_coord_last_event!=None:
+                            if rink_side == "left":
+                                last_shot_dist = np.linalg.norm(np.array([x_coord_last_event,y_coord_last_event]) - np.array(RIGHT_NET_COOR))
+                            elif rink_side == "right":
+                                last_shot_dist = np.linalg.norm(np.array([x_coord_last_event,y_coord_last_event]) - np.array(LEFT_NET_COOR))
+                            else:
+                                last_shot_dist = None
+
+                            last_shot_angle= None
+                            if last_shot_dist != None:
+                                last_shot_angle = shot_angle(y_coord_last_event,last_shot_dist,rink_side)
+                            
+                            if last_shot_angle!=None:
+                                change_shot_angle= shot_angle(y, shot_dist, rink_side)-last_shot_angle
+
+
+                    # Speed
+                    speed = Distance_from_the_last_event / Time_from_the_last_event if Distance_from_the_last_event is not None and Time_from_the_last_event != 0 else None
+
                 #list for each event/play
                 item_row = [game_id,
                             play_idx,
@@ -209,8 +270,10 @@ def json_reader(json_path:str) -> pd.DataFrame:
                             coordinate,shooter_name,
                             goalie_name,
                             empty_Net,strength,
-                            rink_side]
-                
+                            rink_side,last_event_type, x_coord_last_event, y_coord_last_event, Time_from_the_last_event, Distance_from_the_last_event,
+                                      rebound,change_shot_angle, speed]
+
+
                 #total list for all events/games
                 rows.append(item_row)
         
@@ -231,7 +294,16 @@ def json_reader(json_path:str) -> pd.DataFrame:
                                         "goalie_name",
                                         "empty_Net",
                                         "strength",
-                                        "rink_side"])
+                                        "rink_side",
+                                        'last_event_type',
+                                        'x_coord_last_event',
+                                        'y_coord_last_event',
+                                        'Time_from_the_last_event',
+                                        'Distance_from_the_last_event',
+                                        'Rebound',
+                                        'change_shot_angle',
+                                        'Speed'
+                                        ])
         
         df['angle_net'] = df.apply(lambda row: shot_angle(row['coordinate'].get('y', 0), row['shot_dist'], row['rink_side']) if isinstance(row['coordinate'], dict) else 0, axis=1)
         df['is_goal'] = np.where(df['play_type'] == 'Goal', 1, 0)

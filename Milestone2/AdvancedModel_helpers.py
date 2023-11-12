@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from tqdm import tqdm
-from DataTidy import json_reader, read_a_season, read_seasons, read_all_game
+from FeatureEngineering_2 import *
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
 from xgboost import XGBClassifier
