@@ -41,7 +41,7 @@ Two histograms from the `2016-17` to `2019-20` regular season data show shot cou
 
 ![Question 1.3](images/FeatureEngineering1_Q2_7.png)
 
-The 2D histogram suggests a trend where shooters prefer wide-angle shots when near the goal and choose smaller angles from a distance. Key shooting zones are identified close to the goal, **around 60 feet away**, and at a **20 to 30-degree angle**. The joint plot reveals a pattern of shots primarily taken from moderate distances with minimal angles. This decrease in shot frequency with greater distance or sharper angles is probably because shots become more challenging under these conditions.
+The 2D histogram suggests a trend where shooters prefer wide-angle shots when near the goal and choose smaller angles from a distance. Key shooting zones are identified close to the goal, **around 60 feet away**, and at an **abs(20 to 30-degree angle)**, also **around 10 feet away**, and at an **abs(0 to 10-degree angle)**. The joint plot reveals a pattern of shots primarily taken from moderate distances with minimal angles. This decrease in shot frequency with greater distance or sharper angles is probably because shots become more challenging under these conditions.
 
 
 ## Question 2
