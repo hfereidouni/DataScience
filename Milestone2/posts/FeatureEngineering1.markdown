@@ -24,7 +24,7 @@ As always, make sure all of your axes are labeled correctly, and you make the ap
 ![Question 1.1 (1)](images/FeatureEngineering1_Q2_1.png)
 ![Question 1.1 (2)](images/FeatureEngineering1_Q2_2.png)
 
-Two histograms from the `2016-17` to `2019-20` regular season games data show shot counts with and without goals, highlighting their distance from the net. The data reveals a sharp decrease in shots on goal **beyond 70ft**, with scoring chances diminishing at greater distances. Additionally, shots from a team's own half-rink at the opponent's goal are rare and seldom successful. This trend may be due to the reduced apparent size of the goal from a distance and increased reaction time for the goaltender.
+Two histograms from the `2016-17` to `2019-20` regular season games data show shot counts with and without goals, highlighting their distance from the net. The data reveals a sharp decrease in shots on goal **beyond 70 feet**, with scoring chances diminishing at greater distances. Additionally, shots from a team's own half-rink at the opponent's goal are rare and seldom successful. This trend may be due to the reduced apparent size of the goal from a distance and increased reaction time for the goaltender.
 
 
 
