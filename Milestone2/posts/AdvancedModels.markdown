@@ -43,8 +43,8 @@ Compared to Logistic Regression model that is trained on the same features, Xgbo
     ### Calibration Curve
     ![Cali plot](./images/cali_plot_5.2.png)
     ### Comparing to XGboost trained only on two parameters and without hyperparameter tuning
-    The ROC_AUC score has progressed even more compared to changing models from Logisic Regression to XGboost: 0.71 -> 0.75;
-    The Calibration Plot is more converged to the oerfectkt calibrated line.
+    The ROC_AUC score has progressed even more compared to changing models from Logisic Regression to XGboost: 0.71 -> 0.76;
+    The Calibration Plot is much more converged to the oerfectkt calibrated line.
 ## Question 3:
 - ### Feature Selection
     #### reference: https://scikit-learn.org/stable/modules/feature_selection.html
