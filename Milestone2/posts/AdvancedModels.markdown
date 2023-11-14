@@ -54,18 +54,19 @@ Compared to Logistic Regression model that is trained on the same features, Xgbo
     - Filter Method: Removing features with low Variance using `VarianceThreshold` function of `sklearn` library.
     - Wrapper Method: `Recursive Feature Elimination(RFE)` function of `sklearn` library.
     - Embedded Method: L1-based feature selection using `SelectFromModel` function of `sklearn` library.
-    These three methods has respectively lower the dimention of input datas from **36** to **13**,**13** and **9**, the second method has taken significantly more time than other two methods.
-    From validating new models trained using selected features from these three methods and tuned hyperparameters from Q2, we have discovered that the features selected using **RFE** has the best performance overall(best auc roc score), but it's only slightly better than Variance Filter method which took way less time and resources, the third method has the worst performance overall. So we decided to move for ward with the features selected from the first method.  \
+    These three methods has respectively lower the dimention of input datas from **36** to **14**,**14** and **13**, the second method has taken significantly more time than other two methods.
+    From validating new models trained using selected features from these three methods and tuned hyperparameters from Q2, we have discovered that the features selected using **SelectFromModel** and **RFE** have the best performance overall(best auc roc score), but it's only slightly better than Variance Filter method, considering that the **SelectFromModel** method is much faster than the second **RFE** method and they have almost the same roc auc score, we have chosen the features selected from the second method.
     ### The features selected:
-    `['game_time', 'period', 'x', 'y', 'x_coord_last_event',
-       'y_coord_last_event', 'Time_from_the_last_event',
-       'Distance_from_the_last_event', 'change_shot_angle', 'Speed',
-       'angle_net', 'shot_type_Wrist Shot', 'last_event_type_Faceoff']`
+    `['game_time', 'period', 'y', 'Time_from_the_last_event', 'shot_dist',
+       'shot_type_Backhand', 'shot_type_Deflected', 'shot_type_Wrap-around',
+       'shot_type_Wrist Shot', 'last_event_type_Hit',
+       'last_event_type_Missed Shot', 'last_event_type_Shot',
+       'last_event_type_Stoppage']`
 
     ### The ROC/AUC curve of comparaison:
     ![ROC AUC figure](./images/roc_auc_compare.png)
 - ### Models
-  We have trained two xgboost models using selected features, one using hyper-parameters from part 5.2, one with newly tuned hyperparameters:
+  We have trained two xgboost models using selected features, one using hyper-parameters from part 5.2, one with newly tuned hyperparameters, to note that using selected features, the hyperparameter tuning process is nearly twice faster than using all features.
   - ### Model without hyperparameters tuning
       [Comet.ml Experiment](https://www.comet.com/hfereidouni/ift6758/f0d489c19d4b471288372809a4cd8ff6?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
       In this part, a xgboost classifier that is trained with feature selection (no hyperparameters tuned) has been introduced: 
