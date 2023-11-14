@@ -2,7 +2,7 @@
 
 ## Overview of filtered Dataframe
 ![df](./images/part%204/dataframe.jpg)
-
+[Comet.ml](https://www.comet.com/hfereidouni/ift6758/41a02783a9d54633a47fd78acfb9a900?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
 ## Features selected:
 `['game_time','period','x','y','shot_type','last_event_type',
     'x_coord_last_event', 'y_coord_last_event', 'Time_from_the_last_event',
