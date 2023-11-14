@@ -62,10 +62,11 @@ Finally, let's do some quick checks to see if our data makes sense. Unfortunatel
 
 ![Question 3 (1)](images/FeatureEngineering1_Q2_10.png)
 ![Question 3 (2)](images/FeatureEngineering1_Q2_11.png)
+![Question 3 (3)](images/FeatureEngineering1_Q2_12.png)
 
 The histograms compare scoring with empty and non-empty nets, highlighting a clear difference in scoring distances. Goals against non-empty nets are typically scored from close range, whereas with empty nets, shooters have a higher chance of scoring from various distances across the rink.
 
-![Question 3 (3)](images/FeatureEngineering1_Q2_13.png)
-![Question 3 (4)](images/DebuggingTool.png)
+![Question 3 (4)](images/FeatureEngineering1_Q2_13.png)
+![Question 3 (5)](images/DebuggingTool.png)
 
 This filtering aims to identify anomalous goal events in a hockey dataset where goals from a distance greater than 89 units (from opposing team) and not into an empty net are considered anomalies.
