@@ -4,9 +4,10 @@
 ### Splitting data
 We have used a rate of 75/25 training-validation split with our around 30000 datas. Comparing to commonly used 80/20 split, we decide to have a larger validation set to better evaluate our models.
 
-In this part, a xgboost classifier that is trained with only *shot distance* and *shot angle* has been introduced: \
+In this part, a xgboost classifier that is trained with only *shot distance* and *shot angle* has been introduced:
 
 [Comet.ml Experiment](https://www.comet.com/hfereidouni/ift6758/e0a5aa92457347cb8d4f817f7697747b?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
+
 ### ROC AUC figure
 ![ROC AUC figure](./images/roc_auc_5.1.png)
 ### Goal rate vs Shot probability percentile
