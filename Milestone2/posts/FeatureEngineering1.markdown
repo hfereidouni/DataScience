@@ -21,6 +21,9 @@ As always, make sure all of your axes are labeled correctly, and you make the ap
 
 ### Question 1.1 (Histograms of shot counts (goals and no-goals separated), binned by distance)
 
+**NOTE** : First, I added all the mentioned features above to the `TidyData.py` file (modified the previous version of the TidyData.py file used in milestone 1). And based on that created the plots used below.
+
+
 ```python
 # Function to Create and Save Histogram
 def create_histogram(data, file_name, x_title, title, edge_color, color):
