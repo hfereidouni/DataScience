@@ -1,4 +1,4 @@
-#  Advanced Models
+# Advanced Models
 
 ## Question 1:
 ### Splitting data
