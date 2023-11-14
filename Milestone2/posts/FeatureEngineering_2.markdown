@@ -14,7 +14,7 @@ Question 1:
 - **x**, **y**: The `x` and `y` coordinate of where this event happened in current game.
 - **shot_type**: Type of shot of the this event.
 - **shot_dist**: The distance of this event to the net of the attack rinkside.
-- **angle_net**: The angle of this event to the net of the attack rinkside, calculated using shot_dist.
+- **angle_net**: The angle of this event to the net of the attack rinkside, calculated using `shot_dist`.
 
 Question 2:
 - **last_event_type**: Type of event (play) of the previous event (of this event) in current game.
@@ -24,7 +24,7 @@ Question 2:
 
 Question 3:
 - **Rebound**: A boolean value of whether this event is a rebound (the previous event was also a shot) or not.
-- **change_shot_angle**: The difference of angle of the shot of this event and that of the previous event, this is only a valid value if this event is a rebound.
+- **change_shot_angle**: The difference of angle of the shot of this event and that of the previous event, this is only a valid value if this event is a `rebound`.
 - **Speed**: The average speed between the previous event and this event, calculated using `Distance_from_the_last_event` divided by `Time_from_the_last_event`.
 
 Other:
