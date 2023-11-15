@@ -28,3 +28,29 @@ Comparing to a non-tuned Decision Tree that is trained with all datas, the tuned
 ![Cumulative sum](./images/part%206/cumulative_dt_fine.png)
 ### Calibration Curve
 ![Cali plot](./images/part%206/cali_plot_dt_fine.png)
+
+
+
+## Model 2: Random Forest
+#### First we have load our code with all features from part 4, then like in Part 5 we have applied one-hot encoding for String features.
+### Step 1: Data Pre-processing
+1. Drop rows where NaN values are found. 
+### Step 2: Hyperparameters tuning
+We have used the following hyper-paramter-value pairs instead of tuning the Hyperparameters:
+```
+    n_estimators=200,
+    random_state=42,
+    class_weight="balanced", 
+```
+Note that we have used ***class_weight*** so that the random forest model accounts for the class imbalance present in the dataset.
+### Step 3: Feature selection
+Using SelectKBest method along with mutual_info_classifi to filter K best features using 'Mutual Information' with Label/Class as a hueristic. We used the alue of k=10, which means we selected best 10 feeatures based on Mutual information with label.
+
+### Model
+After all these processes, we have trained a Random Forest model using the above hyperparameters and selected features.
+### ROC AUC figure
+![ROC_AUC_compare](./images/part%206/ROC_dt_fine.png)
+### Cumulative % of Goals vs Shot probability percentile
+![Cumulative sum](./images/part%206/cumulative_dt_fine.png)
+### Calibration Curve
+![Cali plot](./images/part%206/cali_plot_dt_fine.png)
