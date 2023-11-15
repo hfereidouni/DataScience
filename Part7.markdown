@@ -1,35 +1,35 @@
-### 1st Logistic Regression Model
+## 1st Logistic Regression Model
 
-## ROC/AUC Curve 
-## Goal Rate vs probabaility percentile
-## Cumulative proportion of goals vs probability percentile
-## Reliability curve
+### ROC/AUC Curve 
+### Goal Rate vs probabaility percentile
+### Cumulative proportion of goals vs probability percentile
+### Reliability curve
 
-### 2nd Logistic Regression Model
+## 2nd Logistic Regression Model
 
-## ROC/AUC Curve 
-## Goal Rate vs probabaility percentile
-## Cumulative proportion of goals vs probability percentile
-## Reliability curve
+### ROC/AUC Curve 
+### Goal Rate vs probabaility percentile
+### Cumulative proportion of goals vs probability percentile
+### Reliability curve
 
-### 3rd Logistic Regression Model
+## 3rd Logistic Regression Model
 
-## ROC/AUC Curve 
-## Goal Rate vs probabaility percentile
-## Cumulative proportion of goals vs probability percentile
-## Reliability curve
+### ROC/AUC Curve 
+### Goal Rate vs probabaility percentile
+### Cumulative proportion of goals vs probability percentile
+### Reliability curve
 
-### XGBoost Model
+## XGBoost Model
 
-## ROC/AUC Curve 
-## Goal Rate vs probabaility percentile
-## Cumulative proportion of goals vs probability percentile
-## Reliability curve
+### ROC/AUC Curve 
+### Goal Rate vs probabaility percentile
+### Cumulative proportion of goals vs probability percentile
+### Reliability curve
 
-### Best Overall Model
+## Best Overall Model
 
-## ROC/AUC Curve 
-## Goal Rate vs probabaility percentile
-## Cumulative proportion of goals vs probability percentile
-## Reliability curve
+### ROC/AUC Curve 
+### Goal Rate vs probabaility percentile
+### Cumulative proportion of goals vs probability percentile
+### Reliability curve
 
