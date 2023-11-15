@@ -49,8 +49,10 @@ Using SelectKBest method along with mutual_info_classifi to filter K best featur
 ### Model
 After all these processes, we have trained a Random Forest model using the above hyperparameters and selected features.
 ### ROC AUC figure
-![ROC_AUC_compare](./images/part%206/ROC_dt_fine.png)
+![ROC_AUC_compare](./images/part%206/Random_Forest_KBest_MI_ROC_KBest_MI_random_forest_no_tuning.png)
+### Goal Rate vs Shot probability percentile
+![Goal_rate](./images/part%206/Random_Forest_KBest_MI_goalratepercentile_KBest_MI_random_forest_no_tuning.png)
 ### Cumulative % of Goals vs Shot probability percentile
-![Cumulative sum](./images/part%206/cumulative_dt_fine.png)
+![Cumulative sum](./images/part%206/Random_Forest_KBest_MI_cumulativegoalrate_KBest_MI_random_forest_no_tuning.png)
 ### Calibration Curve
-![Cali plot](./images/part%206/cali_plot_dt_fine.png)
+![Cali plot](./images/part%206/Random_Forest_KBest_MI_calibration_KBest_MI_random_forest_no_tuning.png)
