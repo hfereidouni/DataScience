@@ -68,6 +68,14 @@ For this part we have selected fetaures ['game_time','period','x','y','shot_type
 ### Model
 After all these processes, we have trained a Logistic Regression model using the above hyperparameters and selected features.
 
+![Reliability Curve](./images/part%206/Log_Reg_L1_i1.png)
+
+![Cumulative % of goals](./images/part%206/Log_Reg_L1_i2.png)
+
+![Goal Rate](./images/part%206/Log_Reg_L1_i3.png)
+
+![ROC Curve](./images/part%206/Log_Reg_L1_i4.png)
+
 
 
 
