@@ -138,16 +138,16 @@ def log_reg_model(X_train, X_valid, Y_train, Y_valid, features_list, BASELINE_FO
     print(f"Class prob: {class_probabilities[0]}" )
 
     Y_pred = clf.predict(X_valid)
-    precision_dt = precision_score(Y_valid, Y_pred)
+    precision = precision_score(Y_valid, Y_pred)
 
-    recall_dt = recall_score(Y_valid, clf.predict(X_valid))
+    recall = recall_score(Y_valid, clf.predict(X_valid))
 
 
 
     #AUC score
     fpr, tpr, thresholds = roc_curve(Y_valid.to_numpy(), class_probabilities[:,1])
     AUC_score = auc(fpr, tpr)
-    roc_dt = roc_auc_score(Y_valid.to_numpy(), Y_pred)
+    roc = roc_auc_score(Y_valid.to_numpy(), Y_pred)
 
     print(f"AUC score: {AUC_score}")
 
@@ -156,9 +156,9 @@ def log_reg_model(X_train, X_valid, Y_train, Y_valid, features_list, BASELINE_FO
                 "class_probabilities": class_probabilities,
                 "validation_accuracy": valid_accuracy,
                 "AUC_score": AUC_score,
-                "precision_dt": precision_dt,
-                "recall_dt": recall_dt,
-                "roc_dt": roc_dt
+                "precision": precision,
+                "recall": recall,
+                "roc": roc
              }
     experiment.log_metrics(metrics, step=1)
 
