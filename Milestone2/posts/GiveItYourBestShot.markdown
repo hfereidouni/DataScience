@@ -56,3 +56,19 @@ After all these processes, we have trained a Random Forest model using the above
 ![Cumulative sum](./images/part%206/Random_Forest_KBest_MI_cumulativegoalrate_KBest_MI_random_forest_no_tuning.png)
 ### Calibration Curve
 ![Cali plot](./images/part%206/Random_Forest_KBest_MI_calibration_KBest_MI_random_forest_no_tuning.png)
+
+## Model 3: Logistic Regression with L1 regulizer
+
+### Step 1: Hyperparameters tuning
+Based on our implementation of logistic regression in part 3, we did some hyperparameter tuning and added L1 regulizer as an added optimizer in this part.
+
+### Step 2: Feature selection
+For this part we have selected fetaures ['game_time','period','x','y','shot_type','last_event_type', 'x_coord_last_event', 'y_coord_last_event', 'Time_from_the_last_event', 'Distance_from_the_last_event', 'Rebound', 'change_shot_angle', 'Speed', 'shot_dist','angle_net'] to train our model.
+
+### Model
+After all these processes, we have trained a Logistic Regression model using the above hyperparameters and selected features.
+
+
+
+
+
