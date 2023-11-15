@@ -16,3 +16,15 @@ Hyperparameters to tune:
 As we can see there are lots of possible combinations, so we have chosen **Randomized Search** to optimize our Algorithme.
 ### Step 3: Feature selection
 After applying wrapper method and optimizing algorithm, we apply a Wrapper method(RFE) to then reduce the half of the features to 6.
+
+### Model
+After all these processes, we have trained a Decision Tree model using the tuned hyperparameters and selected features.
+Comparing to a non-tuned Decision Tree that is trained with all datas, the tuned model has a better performance in terms of roc auc score.
+### ROC AUC Compare
+![ROC_AUC_compare](./images/part%206/ROC_dt_compare.png)
+### ROC AUC figure
+![ROC_AUC_compare](./images/part%206/ROC_dt_fine.png)
+### Cumulative % of Goals vs Shot probability percentile
+![Cumulative sum](./images/part%206/cumulative_dt_fine.png)
+### Calibration Curve
+![Cali plot](./images/part%206/cali_plot_dt_fine.png)
