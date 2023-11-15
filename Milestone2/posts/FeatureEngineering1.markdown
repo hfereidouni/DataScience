@@ -23,7 +23,7 @@ As always, make sure all of your axes are labeled correctly, and you make the ap
 
 **NOTE** : First, I incorporated all the features mentioned above into the TidyData.py file, modifying the previous version used in Milestone 1. Then, based on this modified file, I created the plots shown below.
 
-
+**Snippet**: *Histograms of shot counts (goals and no-goals separated), binned by distance (1)*
 ```python
 # Function to Create and Save Histogram
 def create_histogram(data, file_name, x_title, title, edge_color, color):
@@ -57,6 +57,7 @@ create_histogram(
 
 ![Question 1.1 (1)](images/FeatureEngineering1_Q2_1.png)
 
+**Snippet**: *Histograms of shot counts (goals and no-goals separated), binned by distance (2)*
 ```python
 # Plot Histogram for No Goals
 create_histogram(
@@ -77,6 +78,7 @@ Two histograms from the `2016-17` to `2019-20` regular season games data show sh
 
 ### Question 1.2 (Histograms of shot counts (goals and no-goals separated), binned by angle)
 
+**Snippet**: *Histograms of shot counts (goals and no-goals separated), binned by angle (1)*
 ```python
 # Function to plot histogram
 def plot_histogram(data, filename, title, xlabel, ylabel, color, edge_color):
@@ -92,7 +94,6 @@ def plot_histogram(data, filename, title, xlabel, ylabel, color, edge_color):
     
     fig.savefig(filename)
 ```
-
 ```python
 # Plot Histogram for Goals
 plot_histogram(
@@ -108,6 +109,7 @@ plot_histogram(
 
 ![Question 1.2 (1)](images/FeatureEngineering1_Q2_4.png)
 
+**Snippet**: *Histograms of shot counts (goals and no-goals separated), binned by angle (2)*
 ```python
 # Plot Histogram for No Goals
 plot_histogram(
@@ -129,6 +131,7 @@ Two histograms from the `2016-17` to `2019-20` regular season data show shot cou
 
 ### Question 1.3 (2D histogram where one axis is the distance and the other is the angle)
 
+**Snippet**: *2D histogram where one axis is the distance and the other is the angle*
 ```python
 # Create the joint-plot with the specified parameters
 joint_plot = sns.jointplot(
@@ -158,6 +161,7 @@ The 2D histogram suggests a trend where shooters prefer wide-angle shots when ne
 
 Now, create two more figures relating the goal rate, i.e., `#goals / (#no_goals + #goals)`, to the distance, and goal rate to the angle of the shot. Include these figures in your blog post and briefly discuss your observations.
 
+**Snippet**: *Goal rate to the angle of the shot*
 ```python
 # Copying the dataframe and creating bins
 df_copy = train_df.copy()
@@ -178,6 +182,7 @@ plt.savefig("FeatureEngineering1_Q2_8.png")
 
 ![Question 2 (1)](images/FeatureEngineering1_Q2_8.png)
 
+**Snippet**: *Goal rate to the distance of the shot*
 ```python
 # Creating bins and categorizing 'shot_dist'
 df_copy['distance_bins'] = pd.cut(train_df['shot_dist'], bins = np.arange(0, 204, 4), labels = np.arange(2, 202, 4))
@@ -206,6 +211,7 @@ Finally, let's do some quick checks to see if our data makes sense. Unfortunatel
 
 - **Hint**: the NHL gamecenter usually has video clips of goals for every game.
 
+**Snippet**: *Histogram for Goals with Goalie in Net and for Goals with Empty Net*
 ```python
 # Goal Success Analysis in Hockey: With vs. Without Goalies
 goalie_net_goals = train_df.query('empty_Net == 0 and is_goal == 1')
@@ -244,6 +250,8 @@ def plot_merged_goals_hist(data1, data2, title, x_label, y_label, bins1, bins2, 
 print('\n' + "Size of the goalie_net_goals: " + str(goalie_net_goals.shape))
 print('\n' + "Size of the empty_net_goals: " + str(empty_net_goals.shape) + '\n')
 ```
+
+**Snippet**: *Histogram for Goals with Goalie in Net*
 ```python
 # Plot Histogram for Goals with Goalie in Net
 plot_goals_hist(
@@ -259,6 +267,7 @@ plot_goals_hist(
 
 ![Question 3 (1)](images/FeatureEngineering1_Q2_10.png)
 
+**Snippet**: *Histogram for Goals with Empty Net*
 ```python
 # Plot Histogram for Goals with Empty Net
 plot_goals_hist(
@@ -274,6 +283,7 @@ plot_goals_hist(
 
 ![Question 3 (2)](images/FeatureEngineering1_Q2_11.png)
 
+**Snippet**: *Histogram for Goals (Empty Net vs. Goalie in Net)*
 ```python
 # Plot Histogram for Goals (Empty Net vs. Goalie in Net)
 plot_merged_goals_hist(
