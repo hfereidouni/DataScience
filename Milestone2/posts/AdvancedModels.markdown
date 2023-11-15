@@ -79,7 +79,7 @@ Compared to Logistic Regression model that is trained on the same features, Xgbo
       ![Cumulative sum](./images/cumsum_5.3_1.png)
       ### Calibration Curve
       ![Cali plot](./images/cali_plot_5.3_1.png)
-  - ### Model with hyperparameters tuning
+  - ### Model with hyperparameters tuning(Best)
       [Comet.ml Experiment](https://www.comet.com/hfereidouni/ift6758/caa6b53d724c41c9a001be6440449b52?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
       In this part, a xgboost classifier that is trained with feature selection (no hyperparameters tuned) has been introduced: 
       ### ROC AUC figure
@@ -90,3 +90,4 @@ Compared to Logistic Regression model that is trained on the same features, Xgbo
       ![Cumulative sum](./images/cumsum_5.3_2.png)
       ### Calibration Curve
       ![Cali plot](./images/cali_plot_5.3_2.png)
+
