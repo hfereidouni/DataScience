@@ -62,7 +62,7 @@ After all these processes, we have trained a Random Forest model using the above
 ## Model 3: Logistic Regression with L1 regulizer
 
 ### Step 1: Hyperparameters tuning
-Based on our implementation of logistic regression in part 3, we did some hyperparameter tuning and added L1 regulizer as an added optimizer in this part.
+Based on our implementation of logistic regression in part 3, we did some feature engineering and added L1 regulizer as an added optimizer in this part.
 
 ### Step 2: Feature selection
 For this part we have selected fetaures ['game_time','period','x','y','shot_type','last_event_type', 'x_coord_last_event', 'y_coord_last_event', 'Time_from_the_last_event', 'Distance_from_the_last_event', 'Rebound', 'change_shot_angle', 'Speed', 'shot_dist','angle_net'] to train our model.
@@ -83,24 +83,7 @@ After all these processes, we have trained a Logistic Regression model using the
 ![Reliability Curve](./images/part%206/Log_Reg_L1_i1.png)
 
 
-## Model 3: Logistic Regression with L1 regulizer
 
-### Step 1: Hyperparameters tuning
-Based on our implementation of logistic regression in part 3, we did some hyperparameter tuning and added L1 regulizer as an added optimizer in this part.
-
-### Step 2: Feature selection
-For this part we have selected fetaures ['game_time','period','x','y','shot_type','last_event_type', 'x_coord_last_event', 'y_coord_last_event', 'Time_from_the_last_event', 'Distance_from_the_last_event', 'Rebound', 'change_shot_angle', 'Speed', 'shot_dist','angle_net'] to train our model.
-
-### Model
-After all these processes, we have trained a Logistic Regression model using the above hyperparameters and selected features.
-### ROC Curve
-![ROC Curve](./images/part%206/Log_Reg_L1_i4.png)
-### Goal Rate
-![Goal Rate](./images/part%206/Log_Reg_L1_i3.png)
-### Cumulative % of goals
-![Cumulative % of goals](./images/part%206/Log_Reg_L1_i2.png)
-### Reliability Curve
-![Reliability Curve](./images/part%206/Log_Reg_L1_i1.png)
 ### Best Models:
 
 ### ROC AUC Comparison
