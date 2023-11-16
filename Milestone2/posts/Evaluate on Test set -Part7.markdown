@@ -33,3 +33,4 @@
 ### Cumulative proportion of goals vs probability percentile
 ### Reliability curve
 
+## Reference: https://www.geeksforgeeks.org/probability-calibration-curve-in-scikit-learn/
