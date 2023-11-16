@@ -510,9 +510,9 @@ Next to the figures, include links to the three experiment entries in your comet
 
 The Logistic regresion classifier for "shot distances only" works well above the random classifier. However, from the "Goal Rate graph" and "Cumulative % of goals" we notice that even the higher shot probability percentiles (which means probability of goal being high) don't result in higher goal rates, indicating the presence of more #no_goals examples than #goal examples. The calibration curve tells us the real proportion of positive predictions for a given calculated probability of a positive class.
 
-Experiment entry link: https://www.comet.com/hfereidouni/ift6758/ee98743fc69e489883e4e6f81a7b836e?assetId=86e8d61ab83a48f29fc8e8dfad3ec9c4&assetPath=models%2CLog_Reg_shot_dist_only&experiment-tab=assetStorage
+Experiment entry link: [log_reg_shot_dist_exp](https://www.comet.com/hfereidouni/ift6758/58fdffcff3694b89ae2fa68e3478e279?experiment-tab=assetStorage)
 
-Model Registry entry: https://www.comet.com/hfereidouni/model-registry/log_reg_shot_dist_only/1.15.0?tab=assets
+Model Registry entry: [log_reg_shot_dist](https://www.comet.com/hfereidouni/model-registry/log_reg_shot_dist_only/1.17.0?tab=assets)
 
 ### **Logistic Regression, trained on angle only**
 ![Image](images/part3/angle_only_per-experiment-graph.png)
@@ -521,9 +521,9 @@ Model Registry entry: https://www.comet.com/hfereidouni/model-registry/log_reg_s
 
 The Logistic regresion classifier for shot angles only works similarly to the random classifier. According to the ROC curve, we see that FPR > TPR till FPR=0.5 and after 0.5 value TPR > FPR. Increased FPR points to low precision model. From the Goal Rate and Cumulative % of goals graphs, we notice that the goal rate aproximately stays the same irrepsective of the shot probability model percentile (for both high and low model probabilities). This implies that the model fails to accumulate/ group high probabilities with goal examples. The calibration curve show that this model is poorly calibrated with actual data.
 
-Experiment entry link: https://www.comet.com/api/experiment/redirect?assetId=31c269d20c2449828cc40d37767e7fe8&assetPath=models,Log_Reg_angle_only&experiment-tab=assetStorage&experimentKey=46d8c6c8f29244018fc7adb0aa290e3f
+Experiment entry link: [log_reg_angle_only_exp](https://www.comet.com/hfereidouni/ift6758/835926f4e75e49249f0da50ede623c03?assetId=999e784fa948436da7784f2a8ed78a3b&experiment-tab=assetStorage)
 
-Model Registry link: https://www.comet.com/hfereidouni/model-registry/log_reg_angle_only/1.9.0?tab=assets
+Model Registry link: [log_reg_angle_only](https://www.comet.com/hfereidouni/model-registry/log_reg_angle_only/1.11.0?tab=assets)
 
 
 ## **Logistic Regression, trained on both distance and angle**
@@ -534,10 +534,9 @@ Model Registry link: https://www.comet.com/hfereidouni/model-registry/log_reg_an
 The Logistic regresion classifier for both shot angle and distance features works well above to the random classifier. Similar to "shot distances only" classifier, we notice the presence of class imbalance from "Goal Rate" and "Cumulative % of goals" graphs. We also see that a larger proportion of positive class population (#goal) lies within a small range of model predicted probabilities, similar to "shot ditance only" Logistic Rgression classifier.
 
 
-Experiment Entry Link: https://www.comet.com/api/experiment/redirect?assetId=1540e95509844ca8a533c7dd025c8500&assetPath=models,Log_Reg_shot_dist_and_angle&experiment-tab=assetStorage&experimentKey=335a9643c0cd42288290f1c02de30661
+Experiment Entry Link: [log_reg_dist_angle_exp](https://www.comet.com/hfereidouni/ift6758/1b0ae1ccd6194c278eab48702e7d5f86?assetId=3b0d5dc89ccc4fcf814b480dc8a3880d&experiment-tab=assetStorage)
 
-Model Registry link: https://www.comet.com/hfereidouni/model-registry/log_reg_shot_dist_and_angle/1.7.0?tab=assets
-
+Model Registry link: [log_reg_dist_angle](https://www.comet.com/hfereidouni/model-registry/log_reg_shot_dist_and_angle/1.9.0?tab=assets)
 
 ## **Random baseline: rather than training a classifier, the predicted probability is sampled from a uniform distribution**
 ![Image](images/part3/random_classifier_per-experiment-graph.png)
@@ -549,10 +548,9 @@ From the "Goal Rate" and "Cumulative% of goals" graph, we see that there is no e
 Furthermore, the reliability curve shows that the random classifier places the same frequency of goals dsitribution for each probability bin. This shows the class imbalance in data (same freq. of goals) and poor calibration of random classifier.
 
 
-Experiment Entry Link: https://www.comet.com/api/experiment/redirect?assetId=12623ff25c504b37b3c853922ecb4590&assetPath=models,Random_classifer_random_classifier&experiment-tab=assetStorage&experimentKey=38ca0870199140b685b9f5fccb79befb
+Experiment Entry Link: [random_classifier_exp](https://www.comet.com/hfereidouni/ift6758/0f84bd1221e845e8b8520fb3c6add3a7?assetId=b9812e5ecdca4e9ca54eb963fe7210a9&experiment-tab=assetStorage)
 
-Model Registry link: https://www.comet.com/hfereidouni/model-registry/random_classifer_random_classifier/1.5.0?tab=assets
-
+Model Registry link: [random_classifier](https://www.comet.com/hfereidouni/model-registry/random_classifer_random_classifier/1.7.0?tab=assets)
 
 
 # Part 4: Feature Engineering II
