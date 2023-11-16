@@ -1,6 +1,7 @@
 # Part 6: Give it your best shot!
 
 ## Model 1: Decision Tree
+[Comet.ml](https://www.comet.com/hfereidouni/ift6758/d05a70aa1cda41c199402e7f595f8e49?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=wall)
 #### First we have load our code with all features from part 4, then like in Part 5 we have applied one-hot encoding for String features.
 ### Step 1: Data Pre-processing
 1. Drop `change_shot_angle` column where the majority of datas are NaN, then drop NaN values.
@@ -34,6 +35,7 @@ Comparing to a non-tuned Decision Tree that is trained with all datas, the tuned
 
 
 ## Model 2: Random Forest
+[Comet.ml](https://www.comet.com/hfereidouni/ift6758/f1acaef6a6da4aff8a348a1e73da40eb?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
 #### First we have load our code with all features from part 4, then like in Part 5 we have applied one-hot encoding for String features.
 ### Step 1: Data Pre-processing
 1. Drop rows where NaN values are found. 
@@ -84,7 +86,7 @@ After all these processes, we have trained a Logistic Regression model using the
 
 
 ## Model 3: Logistic Regression with L1 regulizer
-
+[Comet.ml](https://www.comet.com/hfereidouni/ift6758/e80d146da5774672afde1533415d4544?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
 ### Step 1: Hyperparameters tuning
 Based on our implementation of logistic regression in part 3, we did some hyperparameter tuning and added L1 regulizer as an added optimizer in this part.
 
