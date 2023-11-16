@@ -13,6 +13,7 @@ cd datascience-master/Milestone2/
 4. In terminal, install all the required libraries using requirements.txt
 pip install -r requirements.txt
 
+5. Add API key in api_key_gen file and other places in jupyter notebooks
 
 Step 2:
 Task 1 : Rerer to blog
