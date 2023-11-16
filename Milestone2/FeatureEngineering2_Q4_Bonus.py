@@ -32,6 +32,46 @@ def shot_angle(y, distance, rink_side):
     
     return angle
 
+def process_penalties(plays):
+    penalties = {'home': [], 'away': []}
+    penalty_expirations = {'home': [], 'away': []}
+
+    for play in plays:
+        if play["result"]["event"] == "Penalty":
+            team = play["team"]["triCode"]
+            period = play["about"]["period"]
+            period_time = play["about"]["periodTime"]
+            penalty_minutes = play["result"]["penaltyMinutes"]
+
+            game_time = (period - 1) * 20 + int(period_time.split(':')[0]) + penalty_minutes
+            penalized_team = 'home' if team == 'away' else 'away'
+
+            penalties[penalized_team].append(penalty_minutes)
+            penalty_expirations[penalized_team].append(game_time)
+
+            # Debugging
+            print(f"Penalty detected: Team {penalized_team}, Game time {game_time} minutes")
+
+    return penalties, penalty_expirations
+
+def update_powerplay_status(penalties, penalty_expirations, current_game_time):
+    for team in ['home', 'away']:
+        penalties[team] = [penalty for penalty, expiration in zip(penalties[team], penalty_expirations[team]) if expiration > current_game_time]
+        penalty_expirations[team] = [expiration for expiration in penalty_expirations[team] if expiration > current_game_time]
+
+    home_skaters = 5 - len(penalties['home'])
+    away_skaters = 5 - len(penalties['away'])
+
+    powerplay_team = 'home' if len(penalties['home']) < len(penalties['away']) else 'away'
+    powerplay_time = 0
+    if len(penalties[powerplay_team]) < len(penalties['home' if powerplay_team == 'away' else 'away']):
+        powerplay_time = min(penalty_expirations[powerplay_team]) if penalty_expirations[powerplay_team] else 0
+
+    return home_skaters, away_skaters, powerplay_time
+
+def calculate_game_time(period, period_time):
+    minutes, seconds = map(int, period_time.split(':'))
+    return (period - 1) * 20 * 60 + minutes * 60 + seconds
 
 def json_reader(json_path:str) -> pd.DataFrame:
 
@@ -64,6 +104,9 @@ def json_reader(json_path:str) -> pd.DataFrame:
         team_away = teams["away"]
         plays = game_json["liveData"]["plays"]["allPlays"]
 
+        # Initialize penalty tracking
+        penalties, penalty_expirations = process_penalties(plays)
+
         rows = []
         # gathering shots' and goals' informations
         for i,play in enumerate(plays):
@@ -80,7 +123,11 @@ def json_reader(json_path:str) -> pd.DataFrame:
                 attack_team_name = play["team"]["name"]
                 play_type = play["result"]["event"]
                 shot_type = None
+                period_time = play["about"]["periodTime"]
+                current_game_time = calculate_game_time(period, period_time)
                 
+                home_skaters, away_skaters, powerplay_time = update_powerplay_status(penalties, penalty_expirations, current_game_time)
+
                 if "secondaryType" in play["result"]:
                     shot_type = play["result"]["secondaryType"]
                 coordinate= play["coordinates"]
@@ -213,7 +260,8 @@ def json_reader(json_path:str) -> pd.DataFrame:
                             Distance_from_the_last_event,
                             rebound,
                             change_shot_angle,
-                            speed,x,y]
+                            speed,x,y,
+                            home_skaters, away_skaters, powerplay_time]
 
 
                 #total list for all events/games
@@ -244,8 +292,8 @@ def json_reader(json_path:str) -> pd.DataFrame:
                                         'Distance_from_the_last_event',
                                         'Rebound',
                                         'change_shot_angle',
-                                        'Speed','x','y'
-                                        ])
+                                        'Speed','x','y',
+                                        "HomeSkaters", "AwaySkaters", "PowerplayTime"])
         
         df['angle_net'] = df.apply(lambda row: shot_angle(row['coordinate'].get('y', 0), row['shot_dist'], row['rink_side']) if isinstance(row['coordinate'], dict) else 0, axis=1)
         df['is_goal'] = np.where(df['play_type'] == 'Goal', 1, 0)
