@@ -91,7 +91,7 @@ This utility function converts the period and time within a period of a game int
 The list of features:
 
 - **HomeSkaters**: The number of non-goalie skaters currently on the ice for the home team.
-- **HomeSkaters**: The number of non-goalie skaters currently on the ice for the away team.
+- **AwaySkaters**: The number of non-goalie skaters currently on the ice for the away team.
 - **PowerplayTime**: The amount of time elapsed since the start of the current power-play, resetting to 0 when the power-play ends.
 
 
