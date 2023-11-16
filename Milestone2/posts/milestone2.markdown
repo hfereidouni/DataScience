@@ -475,19 +475,19 @@ An example of what is expected for (b) and (c) are shown in Fig. 1. Do not inclu
 
 **ROC Curve**
 
-![Image](Baseline_figures_mile_2/Log_Reg_ROC_shot_dist_only.png)
+![Image](images/part3/Log_Reg_ROC_shot_dist_only.png)
 
 **Goal Rate v/s Shot Probability percentile**
 
-![Image](Baseline_figures_mile_2/Log_Reg_goalratepercentile_shot_dist_only.png)
+![Image](images/part3/Log_Reg_goalratepercentile_shot_dist_only.png)
 
 **Cumulative Goal Rate v/s Shot Probability percentile**
 
-![Image](Baseline_figures_mile_2/Log_Reg_cumulativegoalrate_shot_dist_only.png)
+![Image](images/part3/Log_Reg_cumulativegoalrate_shot_dist_only.png)
 
 **Reliability Curve**
 
-![Image](Baseline_figures_mile_2/Log_Reg_calibration_shot_dist_only.png)
+![Image](images/part3/Log_Reg_calibration_shot_dist_only.png)
 
 # Question 3
 Now train two more Logistic Regression classifiers using the same setup as above, but this time on the angle feature, and then both distance and angle. Produce the same three curves as described in the previous section for each model. Including the random baseline, you should have a total of 4 lines on each figure: 
@@ -504,7 +504,7 @@ Next to the figures, include links to the three experiment entries in your comet
 ### Answer 3 & 4 COMBINED
 
 ### **Logistic Regression, trained on distance only**
-![Image](Baseline_figures_mile_2/shot_dist_only_per-experiment-graph.png)
+![Image](images/part3/shot_dist_only_per-experiment-graph.png)
 
 **Discussion**
 
@@ -515,7 +515,7 @@ Experiment entry link: https://www.comet.com/hfereidouni/ift6758/ee98743fc69e489
 Model Registry entry: https://www.comet.com/hfereidouni/model-registry/log_reg_shot_dist_only/1.15.0?tab=assets
 
 ### **Logistic Regression, trained on angle only**
-![Image](Baseline_figures_mile_2/angle_only_per-experiment-graph.png)
+![Image](images/part3/angle_only_per-experiment-graph.png)
 
 **Discussion**
 
@@ -527,7 +527,7 @@ Model Registry link: https://www.comet.com/hfereidouni/model-registry/log_reg_an
 
 
 ## **Logistic Regression, trained on both distance and angle**
-![Image](Baseline_figures_mile_2/shot_dist_and_angle_per-experiment-graph.png)
+![Image](images/part3/shot_dist_and_angle_per-experiment-graph.png)
 
 **Discussion**
 
@@ -540,7 +540,7 @@ Model Registry link: https://www.comet.com/hfereidouni/model-registry/log_reg_sh
 
 
 ## **Random baseline: rather than training a classifier, the predicted probability is sampled from a uniform distribution**
-![Image](Baseline_figures_mile_2/random_classifier_per-experiment-graph.png)
+![Image](images/part3/random_classifier_per-experiment-graph.png)
 
 **Discussion**
 
