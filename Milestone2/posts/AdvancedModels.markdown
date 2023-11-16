@@ -92,3 +92,7 @@ Compared to Logistic Regression model that is trained on the same features, Xgbo
       ### Calibration Curve
       ![Cali plot](./images/cali_plot_5.3_2.png)
 
+### References:
+https://aiinpractice.com/xgboost-hyperparameter-tuning-with-bayesian-optimization/ \
+https://zhuanlan.zhihu.com/p/131216861 \
+https://scikit-learn.org/stable/modules/feature_selection.html
