@@ -592,48 +592,65 @@ Other:
 
 **Function: process_penalties(plays):**
 ```python
-def process_penalties(plays):
+def process_penalties(plays, team_home_name, team_away_name):
     penalties = {'home': [], 'away': []}
+    penalty_start_times = {'home': [], 'away': []}
     penalty_expirations = {'home': [], 'away': []}
 
     for play in plays:
         if play["result"]["event"] == "Penalty":
             team = play["team"]["triCode"]
+            team_name = play["team"]["name"]
             period = play["about"]["period"]
             period_time = play["about"]["periodTime"]
             penalty_minutes = play["result"]["penaltyMinutes"]
 
-            game_time = (period - 1) * 20 + int(period_time.split(':')[0]) + penalty_minutes
-            penalized_team = 'home' if team == 'away' else 'away'
+            penalty_start = (period - 1) * 20 + int(period_time.split(':')[0])
+            expiry_time = penalty_start + penalty_minutes
+            penalized_team = 'home' if team_name == team_away_name else 'away'
 
             penalties[penalized_team].append(penalty_minutes)
-            penalty_expirations[penalized_team].append(game_time)
+            penalty_start_times[penalized_team].append(penalty_start)
+            penalty_expirations[penalized_team].append(expiry_time)
 
             # Debugging
-            print(f"Penalty detected: Team {penalized_team}, Game time {game_time} minutes")
-
-    return penalties, penalty_expirations
+            print(f"Penalty detected: Team {penalized_team}, at Game time {penalty_start} minutes till {expiry_time} time")
 ```
-This function analyzes a list of plays from a game, identifying and handling penalty events. It calculates when each penalty will expire based on the game's progress and logs these details. The function is primarily focused on tracking penalties for both the home and away teams, including the duration and expiration times of these penalties.
+This function analyzes a list of plays from a game, identifying and handling penalty events. It calculates when each penalty will start & expire based on the game's progress and logs these details. The function is primarily focused on tracking penalties for both the home and away teams, including the duration, starting and expiration times of these penalties.
 
 **Function: update_powerplay_status(penalties, penalty_expirations, current_game_time):**
 ```python
-def update_powerplay_status(penalties, penalty_expirations, current_game_time):
+def update_powerplay_status(penalties, penalty_start_times, penalty_expirations, current_game_time):
     for team in ['home', 'away']:
-        penalties[team] = [penalty for penalty, expiration in zip(penalties[team], penalty_expirations[team]) if expiration > current_game_time]
-        penalty_expirations[team] = [expiration for expiration in penalty_expirations[team] if expiration > current_game_time]
+        # wrt current time, which are active penalties
+        # pen < start < expiry
+        active_penalties, active_penalty_start, active_penalty_expirations = {'home': [], 'away': []}, {'home': [], 'away': []}, {'home': [], 'away': []}
+        for penalty, penalty_start, expiration in zip(penalties[team], penalty_start_times[team], penalty_expirations[team]):
+            if penalty_start < current_game_time and expiration > current_game_time:
 
-    home_skaters = 5 - len(penalties['home'])
-    away_skaters = 5 - len(penalties['away'])
+                active_penalties[team].append(penalty)
+                active_penalty_expirations[team].append(expiration)
+                active_penalty_start[team].append(penalty_start)
+                
+    home_skaters = 5 - len(active_penalties['home'])
+    away_skaters = 5 - len(active_penalties['away'])
 
-    powerplay_team = 'home' if len(penalties['home']) < len(penalties['away']) else 'away'
-    powerplay_time = 0
-    if len(penalties[powerplay_team]) < len(penalties['home' if powerplay_team == 'away' else 'away']):
-        powerplay_time = min(penalty_expirations[powerplay_team]) if penalty_expirations[powerplay_team] else 0
-
+    # at a given time, the team with more penalties is not the owerplay team
+    if len(active_penalties['home']) != len(active_penalties['away']):
+        powerplay_team = 'home' if len(active_penalties['home']) < len(active_penalties['away']) else 'away'
+        non_powerplay_team = 'home' if powerplay_team=='away' else 'away'
+        powerplay_time = 0
+        if len(active_penalties[powerplay_team]) < len(active_penalties[non_powerplay_team]):
+            #powerplay is current time - time when powerplay started for a team
+            powerplay_time = current_game_time - active_penalty_start[non_powerplay_team][-1]
+    else:
+        # both teams have equal penalties - no powerplay
+        # chatgt query: what happens if both teams are in penalty in nhl, who is the powerplay?
+        powerplay_time = 0
+        
     return home_skaters, away_skaters, powerplay_time
 ```
-update_powerplay_status is designed to update the current status of penalties and powerplays in a game based on the ongoing time. It removes expired penalties and calculates the number of players each team has on the ice. The function also identifies which team, if any, has a powerplay advantage and the remaining duration of that powerplay.
+update_powerplay_status is designed to update the current status of penalties and powerplays in a game based on the ongoing time. It calculates active penalties and the number of players each team has on the ice. The function also identifies which team, if any, has a powerplay advantage and the remaining duration of that powerplay.
 
 **Function: calculate_game_time(period, period_time):**
 ```python
