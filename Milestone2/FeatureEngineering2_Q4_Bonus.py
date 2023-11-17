@@ -32,41 +32,61 @@ def shot_angle(y, distance, rink_side):
     
     return angle
 
-def process_penalties(plays):
+def process_penalties(plays, team_home_name, team_away_name):
     penalties = {'home': [], 'away': []}
+    penalty_start_times = {'home': [], 'away': []}
     penalty_expirations = {'home': [], 'away': []}
 
     for play in plays:
         if play["result"]["event"] == "Penalty":
             team = play["team"]["triCode"]
+            team_name = play["team"]["name"]
             period = play["about"]["period"]
             period_time = play["about"]["periodTime"]
             penalty_minutes = play["result"]["penaltyMinutes"]
 
-            game_time = (period - 1) * 20 + int(period_time.split(':')[0]) + penalty_minutes
-            penalized_team = 'home' if team == 'away' else 'away'
+            penalty_start = (period - 1) * 20 + int(period_time.split(':')[0])
+            expiry_time = penalty_start + penalty_minutes
+            penalized_team = 'home' if team_name == team_away_name else 'away'
 
             penalties[penalized_team].append(penalty_minutes)
-            penalty_expirations[penalized_team].append(game_time)
+            penalty_start_times[penalized_team].append(penalty_start)
+            penalty_expirations[penalized_team].append(expiry_time)
 
             # Debugging
-            print(f"Penalty detected: Team {penalized_team}, Game time {game_time} minutes")
+            print(f"Penalty detected: Team {penalized_team}, at Game time {penalty_start} minutes till {expiry_time} time")
 
-    return penalties, penalty_expirations
+    return penalties, penalty_start_times, penalty_expirations
 
-def update_powerplay_status(penalties, penalty_expirations, current_game_time):
+def update_powerplay_status(penalties, penalty_start_times, penalty_expirations, current_game_time):
     for team in ['home', 'away']:
-        penalties[team] = [penalty for penalty, expiration in zip(penalties[team], penalty_expirations[team]) if expiration > current_game_time]
-        penalty_expirations[team] = [expiration for expiration in penalty_expirations[team] if expiration > current_game_time]
+        # wrt current time, which are active penalties
+        # pen < start < expiry
+        active_penalties, active_penalty_start, active_penalty_expirations = {'home': [], 'away': []}, {'home': [], 'away': []}, {'home': [], 'away': []}
+        for penalty, penalty_start, expiration in zip(penalties[team], penalty_start_times[team], penalty_expirations[team]):
+            if penalty_start < current_game_time and expiration > current_game_time:
 
-    home_skaters = 5 - len(penalties['home'])
-    away_skaters = 5 - len(penalties['away'])
+                active_penalties[team].append(penalty)
+                active_penalty_expirations[team].append(expiration)
+                active_penalty_start[team].append(penalty_start)
+                
 
-    powerplay_team = 'home' if len(penalties['home']) < len(penalties['away']) else 'away'
-    powerplay_time = 0
-    if len(penalties[powerplay_team]) < len(penalties['home' if powerplay_team == 'away' else 'away']):
-        powerplay_time = min(penalty_expirations[powerplay_team]) if penalty_expirations[powerplay_team] else 0
+    home_skaters = 5 - len(active_penalties['home'])
+    away_skaters = 5 - len(active_penalties['away'])
 
+    # at a given time, the team with more penalties is not the owerplay team
+    if len(active_penalties['home']) != len(active_penalties['away']):
+        powerplay_team = 'home' if len(active_penalties['home']) < len(active_penalties['away']) else 'away'
+        non_powerplay_team = 'home' if powerplay_team=='away' else 'away'
+        powerplay_time = 0
+        if len(active_penalties[powerplay_team]) < len(active_penalties[non_powerplay_team]):
+            #powerplay is current time - time when powerplay started for a team
+            powerplay_time = current_game_time - active_penalty_start[non_powerplay_team][-1]
+    else:
+        # both teams have equal penalties - no powerplay
+        # chatgt query: what happens if both teams are in penalty in nhl, who is the powerplay?
+        powerplay_time = 0
+        
     return home_skaters, away_skaters, powerplay_time
 
 def calculate_game_time(period, period_time):
@@ -105,7 +125,9 @@ def json_reader(json_path:str) -> pd.DataFrame:
         plays = game_json["liveData"]["plays"]["allPlays"]
 
         # Initialize penalty tracking
-        penalties, penalty_expirations = process_penalties(plays)
+        team_home_name = game_json["gameData"]["teams"]["home"]["name"]
+        team_away_name = game_json["gameData"]["teams"]["away"]["name"]
+        penalties, penalty_start_times, penalty_expirations = process_penalties(plays, team_home_name, team_away_name)
 
         rows = []
         # gathering shots' and goals' informations
@@ -126,7 +148,7 @@ def json_reader(json_path:str) -> pd.DataFrame:
                 period_time = play["about"]["periodTime"]
                 current_game_time = calculate_game_time(period, period_time)
                 
-                home_skaters, away_skaters, powerplay_time = update_powerplay_status(penalties, penalty_expirations, current_game_time)
+                home_skaters, away_skaters, powerplay_time = update_powerplay_status(penalties, penalty_start_times, penalty_expirations, current_game_time)
 
                 if "secondaryType" in play["result"]:
                     shot_type = play["result"]["secondaryType"]
