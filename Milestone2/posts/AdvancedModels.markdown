@@ -6,7 +6,7 @@ We have used a rate of 75/25 training-validation split with our around 30000 dat
 
 In this part, a xgboost classifier that is trained with only *shot distance* and *shot angle* has been introduced:
 
-[Comet.ml Experiment](https://www.comet.com/hfereidouni/ift6758/e0a5aa92457347cb8d4f817f7697747b?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
+[Comet.ml Experiment](https://www.comet.com/hfereidouni/ift6758/934d6e4884f046b59408de6197dfa32d?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
 
 ### ROC AUC figure
 ![ROC AUC figure](./images/roc_auc_5.1.png)
@@ -22,7 +22,8 @@ Compared to Logistic Regression model that is trained on the same features, Xgbo
 
 
 ## Question 2:
-[Comet.ml Experiment](https://www.comet.com/hfereidouni/ift6758/cd4cdf2f3d6a47dc8a58b25261ed7c27?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
+[Comet.ml Experiment](https://www.comet.com/hfereidouni/ift6758/1fd819b207ce41e4a09e89e74e45c16e?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
+
 - ### One-hot encoding
   For `shot_type` and `last_event_type`, we have chosen to use one-hot encoding to represents them instead of label encoding, this is to avoid an arbitrary order to categorical values. The dimension of the datas are thus **36**.
 - ### Hyperparameter tuning
@@ -69,7 +70,7 @@ Compared to Logistic Regression model that is trained on the same features, Xgbo
 - ### Models
   We have trained two xgboost models using selected features, one using hyper-parameters from part 5.2, one with newly tuned hyperparameters, to note that using selected features, the hyperparameter tuning process is nearly twice faster than using all features.
   - ### Model without hyperparameters tuning
-      [Comet.ml Experiment](https://www.comet.com/hfereidouni/ift6758/f0d489c19d4b471288372809a4cd8ff6?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
+      [Comet.ml Experiment](https://www.comet.com/hfereidouni/ift6758/3f2c8e5488b04654881315c1c7dca01d?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
       In this part, a xgboost classifier that is trained with feature selection (no hyperparameters tuned) has been introduced: 
       ### ROC AUC figure
       ![ROC AUC figure](./images/roc_auc_5.3_1.png)
@@ -80,7 +81,7 @@ Compared to Logistic Regression model that is trained on the same features, Xgbo
       ### Calibration Curve
       ![Cali plot](./images/cali_plot_5.3_1.png)
   - ### Model with hyperparameters tuning(Best)
-      [Comet.ml Experiment](https://www.comet.com/hfereidouni/ift6758/caa6b53d724c41c9a001be6440449b52?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
+      [Comet.ml Experiment](https://www.comet.com/hfereidouni/ift6758/66775ec9a7af4091b1e29ad6a83b3099?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step)
       In this part, a xgboost classifier that is trained with feature selection (no hyperparameters tuned) has been introduced: 
       ### ROC AUC figure
       ![ROC AUC figure](./images/roc_auc_5.3_2.png)
@@ -91,3 +92,7 @@ Compared to Logistic Regression model that is trained on the same features, Xgbo
       ### Calibration Curve
       ![Cali plot](./images/cali_plot_5.3_2.png)
 
+### References:
+https://aiinpractice.com/xgboost-hyperparameter-tuning-with-bayesian-optimization/ \
+https://zhuanlan.zhihu.com/p/131216861 \
+https://scikit-learn.org/stable/modules/feature_selection.html
