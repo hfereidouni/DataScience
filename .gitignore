@@ -6,3 +6,4 @@ vendor
 nhl_data/
 *.csv
 Milestone2/models/Random_Forest_KBest_MI_random_forest_no_tuning.joblib
+*.json
