@@ -72,7 +72,7 @@ def download_data(game_id, playoffs=False):
 
 if __name__ == "__main__":
     # Iterate over the desired seasons
-    for season in range(2016, 2022):
+    for season in range(2022,2023):
         print(f"Downloading regular season data for {season}-{season+1} season...")
 
         # Added tqdm to the loop for progress bar visualization

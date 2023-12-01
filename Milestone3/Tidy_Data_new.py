@@ -63,6 +63,8 @@ def json_reader(json_path:str) -> pd.DataFrame:
         team_away = game_json["homeTeam"]
         plays = game_json["plays"]
 
+        # print(game_id)
+
         rows = []
         # gathering shots' and goals' informations
         for i,play in enumerate(plays):
@@ -72,7 +74,7 @@ def json_reader(json_path:str) -> pd.DataFrame:
 
                 play_idx = play["eventId"]
 
-                print(play_idx)
+                # print(play_idx)
 
                 period = play["period"]
                 period_time_rem = play["timeRemaining"]
@@ -86,7 +88,10 @@ def json_reader(json_path:str) -> pd.DataFrame:
                     play_type = "Goal"
 
                 shot_type = None
-                shot_type_new = play["details"]["shotType"]
+                shot_type_new = None
+
+                if "shotType" in play["details"]:
+                    shot_type_new = play["details"]["shotType"]
 
                 #Convert shotTypes in new API to the same as the old API
                 if shot_type_new == "snap" or shot_type_new == "slap" or shot_type_new == "wrist":
@@ -96,7 +101,12 @@ def json_reader(json_path:str) -> pd.DataFrame:
                 elif shot_type_new == "wrap-around":
                     shot_type = shot_type_new.capitalize()
                 
-                coordinate= {"x":play["details"]["xCoord"],"y":play["details"]["yCoord"]}
+                # coordinate= {"x":play["details"]["xCoord"],"y":play["details"]["yCoord"]}
+                coordinate= {}
+                if "xCoord" in play["details"]:
+                    coordinate["x"]= play["details"]["xCoord"]
+                if "yCoord" in play["details"]:                
+                    coordinate["y"]= play["details"]["yCoord"]
 
                 # players = play["players"]
                 goalie_id = None
@@ -131,9 +141,9 @@ def json_reader(json_path:str) -> pd.DataFrame:
                 #and calculate the distance between play coordinates and net(attack rinkside) coordinate
                 shot_dist = None
                 if coordinate != {}:
-                    if coordinate["y"] == None:
+                    if "y" not in coordinate:
                         coordinate["y"] = 0
-                    elif coordinate["x"] == None:
+                    elif "x" not in coordinate:
                         coordinate["x"] = 0
                     
                     
@@ -316,7 +326,7 @@ def read_a_season(path:str,start_year:int)->pd.DataFrame:
     Pandas Dataframe:Tidied data for one particular season
 
    """
-    if start_year>=2016 and start_year<=2020:
+    if start_year>=2020 and start_year<=2022:
         res = os.listdir(path)
         result = pd.DataFrame()
         length = len(res)
@@ -330,9 +340,9 @@ def read_a_season(path:str,start_year:int)->pd.DataFrame:
                 else:
                     # pandas 2.1.1 has null error
                     # fix: https://stackoverflow.com/questions/77254777/alternative-to-concat-of-empty-dataframe-now-that-it-is-being-deprecated
-                    result = pd.concat([result.astype(temp.dtypes),temp.astype(result.dtypes)],ignore_index=True)
+                    result = pd.concat([result.astype(temp.dtypes,errors='ignore'),temp.astype(result.dtypes,errors='ignore')],ignore_index=True)
     else:
-        print("Please choose a season between 2016 and 2020")
+        print("Please choose a season between 2020 and 2022")
         return None
     return result
 
