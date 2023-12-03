@@ -17,7 +17,7 @@ import pandas as pd
 import joblib
 
 
-import ift6758
+# import ift6758
 
 
 LOG_FILE = os.environ.get("FLASK_LOG", "flask.log")
@@ -109,3 +109,6 @@ def predict():
 
     app.logger.info(response)
     return jsonify(response)  # response must be json serializable!
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=os.environ.get("SERVING_PORT", 8080))
