@@ -21,6 +21,12 @@ import joblib
 
 
 LOG_FILE = os.environ.get("FLASK_LOG", "flask.log")
+MODEL_DIR = "../models/"
+VALID_MODELS = [
+    "log_reg_shot_dist_only",
+    "log_reg_shot_dist_only",
+]
+DEFAULT_MODEL = VALID_MODELS[0]
 
 
 app = Flask(__name__)
