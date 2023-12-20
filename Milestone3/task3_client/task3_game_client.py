@@ -38,7 +38,6 @@ class GameClient:
             # print(f"new event df: {new_events_df.index}")
             # print(predict_df)
             result_df = pd.merge(new_events_df, predict_df, left_index=True, right_index=True)
-            result_df = pd.concat([new_events_df, predict_df], axis=1)
             print(result_df.columns)
             self.tracked_df = pd.concat([self.tracked_df, result_df])
             self.last_event[game_id] = result_df.iloc[-1]['event_idx']
@@ -58,7 +57,7 @@ class GameClient:
             # print(predict_df)
             # print("data shape:", game_df.index)
             result_df = pd.merge(game_df, predict_df, left_index=True, right_index=True)
-            result_df = game_df.copy()
+            # result_df = game_df.copy()
             print("result shape: ", result_df.shape, result_df.columns)
             self.tracked_df = result_df
             self.last_event[game_id] = result_df.iloc[-1]['event_idx']
@@ -84,16 +83,16 @@ if __name__=="__main__":
     # print("resultt shape: ", type(result))
 
     result2 = client.ping_game(game_id)
-    print("ping result 2 shape:", type(result2))
+    print("ping result 2 shape:", type(result2), result2.shape)
 
     # result2 = client.get_game("2022030414")
     # print("get result 2 shape:", type(result2))
 
-    # result2 = client.get_game("2022030415")
-    # print("get result 2 shape:", type(result2))
+    result2 = client.get_game("2022030415")
+    print("get result 2 shape:", type(result2))
     
-    # result2 = client.ping_game("2022030415")
-    # print("ping result 2 shape:", type(result2))
+    result2 = client.ping_game("2022030415")
+    print("ping result 2 shape:", result2.shape)
 
 # @app.route("/get_live_events", methods=["GET"])
 # def get_live_events():
