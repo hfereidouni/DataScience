@@ -16,6 +16,21 @@ class ServingClient:
 
         # any other potential initialization
 
+    def current_model(self):
+
+        try:
+            response = requests.get(f"{self.base_url}/check")
+
+            if response.status_code == 200:
+                result_json = response.json()
+                return result_json
+            else:
+                logger.error(f"Check failed with status code: {response.status_code}")
+        except requests.RequestException as e:
+            logger.error(f"Network error occured: {e}")
+            return []
+
+            
     def predict(self, X: pd.DataFrame) -> pd.DataFrame:
         """
         Formats the inputs into an appropriate payload for a POST request, and queries the
@@ -31,8 +46,8 @@ class ServingClient:
 
         try:
             # Make a POST request to the prediction endpoint
-            response = requests.post(f"{self.base_url}/predict", json=json.loads(input_json))
-    
+            response = requests.post(f"{self.base_url}/predict", json=input_json)
+            # print(f"---------------------\n {response} \n ----------------------")
             if response.status_code == 200:
                 # Parse the JSON response and convert it back to DataFrame
                 result_json = response.json()

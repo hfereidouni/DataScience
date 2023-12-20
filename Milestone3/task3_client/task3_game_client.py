@@ -18,19 +18,28 @@ class GameClient:
             os.makedirs("event_data")
             print("event folder created successfully!")
         
+    def know_current_model(self):
+        return self.serving_client.current_model()
 
     def ping_game(self, game_id):
+        #loads data based on a game id
         game_data = load_game(game_id)
         new_events = self.check_new_event(game_data, game_id)
 
         result_df = pd.DataFrame()
         if len(new_events) > 0:
             new_events_df = create_game_df(game_data)
-            predict_input_df = new_events_df.loc[1:100][['shot_dist', 'angle_net']]
-            print(f"data shape: {new_events_df.shape} predict shape: {predict_input_df.shape}")
+            model_features = self.know_current_model()
+            
+            predict_input_df = new_events_df[model_features]
+            # print(f"data shape: {new_events_df.shape} predict shape: {predict_input_df.shape}")
             predict_df = self.serving_client.predict(predict_input_df)
-            print(f"predict shape: {predict_df.shape}")
+            # print(f"predict shape: {predict_df.shape} {predict_df.columns} {predict_df.index}")
+            # print(f"new event df: {new_events_df.index}")
+            # print(predict_df)
             result_df = pd.merge(new_events_df, predict_df, left_index=True, right_index=True)
+            result_df = pd.concat([new_events_df, predict_df], axis=1)
+            print(result_df.columns)
             self.tracked_df = pd.concat([self.tracked_df, result_df])
             self.last_event[game_id] = result_df.iloc[-1]['event_idx']
             self.tracked_df.to_csv(f"event_data/game_{game_id}.csv") # create event data folder
@@ -38,15 +47,19 @@ class GameClient:
         return result_df
 
     def get_game(self, game_id):
+        # adds data to local vent folder for a new game_id
         if self.last_event.get(game_id) is None: 
             game_df = create_game_df(load_game(game_id))
-            print("game df shape: ", game_df.shape)
-            predict_input_df = game_df.loc[1:100][['shot_dist', 'angle_net']]
+            # print("game df shape: ", game_df.shape)
+            model_features = self.know_current_model()
+            predict_input_df = game_df[model_features] #only for shot_dist_only model
             predict_df = self.serving_client.predict(predict_input_df)
-            print("predict shape: ", predict_df.shape)
+            # print("predict shape: ", predict_df.shape, predict_df.columns, predict_df.index)
+            # print(predict_df)
+            # print("data shape:", game_df.index)
             result_df = pd.merge(game_df, predict_df, left_index=True, right_index=True)
             result_df = game_df.copy()
-            print("result shape: ", result_df.shape)
+            print("result shape: ", result_df.shape, result_df.columns)
             self.tracked_df = result_df
             self.last_event[game_id] = result_df.iloc[-1]['event_idx']
             print("tracker elements: ", self.last_event)
@@ -68,19 +81,19 @@ if __name__=="__main__":
 
     game_id = "2022030411"
     result = client.get_game(game_id)
-    print("resultt shape: ", type(result))
+    # print("resultt shape: ", type(result))
 
     result2 = client.ping_game(game_id)
     print("ping result 2 shape:", type(result2))
 
-    result2 = client.get_game("2022030414")
-    print("get result 2 shape:", type(result2))
+    # result2 = client.get_game("2022030414")
+    # print("get result 2 shape:", type(result2))
 
-    result2 = client.get_game("2022030415")
-    print("get result 2 shape:", type(result2))
+    # result2 = client.get_game("2022030415")
+    # print("get result 2 shape:", type(result2))
     
-    result2 = client.ping_game("2022030415")
-    print("ping result 2 shape:", type(result2))
+    # result2 = client.ping_game("2022030415")
+    # print("ping result 2 shape:", type(result2))
 
 # @app.route("/get_live_events", methods=["GET"])
 # def get_live_events():

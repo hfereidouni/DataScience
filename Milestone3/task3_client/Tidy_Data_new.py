@@ -61,31 +61,30 @@ def json_reader(json_path:str) -> pd.DataFrame:
         game_id = game_json["id"]
         team_home = game_json["awayTeam"]
         team_away = game_json["homeTeam"]
+        home_name = team_home["name"]["default"]
+        away_name = team_away["name"]["default"]
         plays = game_json["plays"]
 
-        # print(game_id)
+        home_score = 0
+        away_score = 0
 
         rows = []
         # gathering shots' and goals' informations
         for i,play in enumerate(plays):
             item_row = []
-            # if play["result"]["event"] == "Shot" or play["result"]["event"]=="Goal":
             if play["typeDescKey"] == "shot-on-goal" or play["typeDescKey"] == "missed-shot" or play["typeDescKey"] == "goal":
 
                 play_idx = play["eventId"]
 
-                # print(play_idx)
-
                 period = play["period"]
                 period_time_rem = play["timeRemaining"]
-                # goals_home = play["details"]["homeScore"]
-                # goals_away = play["details"]["awayScore"]
-                # attack_team_name = play["team"]["name"]
                 play_type = None
                 if play["typeDescKey"] == "shot-on-goal" or play["typeDescKey"] == "missed-shot":
                     play_type = "Shot"
                 elif play["typeDescKey"] == "goal":
                     play_type = "Goal"
+                    home_score = play["details"]["homeScore"]
+                    away_score = play["details"]["awayScore"]
 
                 shot_type = None
                 shot_type_new = None
@@ -133,12 +132,6 @@ def json_reader(json_path:str) -> pd.DataFrame:
                     else:
                         empty_Net = 0
 
-                # strength=None
-                # if play_type == "Goal":
-                #     strength = play["result"]["strength"]["code"]
-                
-                #find the rinkside that each team should attack/defend
-                #and calculate the distance between play coordinates and net(attack rinkside) coordinate
                 shot_dist = None
                 if coordinate != {}:
                     if "y" not in coordinate:
@@ -162,22 +155,6 @@ def json_reader(json_path:str) -> pd.DataFrame:
                                 rink_side = "right"
                             else:
                                 rink_side = "left"
-
-                    # #find rinkside
-                    # periods = game_json["liveData"]["linescore"]["periods"]
-                    # rink_side = None
-                    # if attack_team_name == team_home["name"]:
-                    #     home_or_away = "home"
-                    #     for p in periods:
-                    #         if p["num"] == period:
-                    #             if "rinkSide" in p[home_or_away]:
-                    #                 rink_side = p[home_or_away]["rinkSide"]
-                    # else:
-                    #     home_or_away = "away"
-                    #     for p in periods:
-                    #         if p["num"] == period:
-                    #             if "rinkSide" in p[home_or_away]:
-                    #                 rink_side = p[home_or_away]["rinkSide"]
                     
                     #calculate distance
                     if rink_side == "left":
@@ -186,94 +163,26 @@ def json_reader(json_path:str) -> pd.DataFrame:
                         shot_dist = np.linalg.norm(np.array([coordinate["x"],coordinate["y"]]) - np.array(LEFT_NET_COOR))
                     else:
                         shot_dist = None
-                
-                #data engineering 2:
-                # if i>0:
-                #     previous_event = plays[i-1]
-                #     last_event_type = previous_event['result']['event']
-
-                #     x = play['coordinates']['x'] if 'x' in play['coordinates'] else None
-                #     y = play['coordinates']['y'] if 'y' in play['coordinates'] else None
-
-                #     x_coord_last_event = previous_event['coordinates']['x'] if 'x' in previous_event['coordinates'] else None
-                #     y_coord_last_event = previous_event['coordinates']['y'] if 'y' in previous_event['coordinates'] else None
-
-                #     # time from the last event (seconds)
-                #     about = play['about']
-                #     period = about['period']
-                #     period_time = about['periodTime']
-                #     minutes_time = (period - 1) * 20
-                #     seconds_time = int(period_time.split(':')[0]) * 60 + int(period_time.split(':')[1])
-                #     game_time = minutes_time + seconds_time
-
-                #     prev_about = previous_event['about']
-                #     prev_period = previous_event['about']['period']
-                #     prev_period_time = prev_about['periodTime']
-                #     prev_minutes_time = (prev_period - 1) * 20
-                #     prev_seconds_time = int(prev_period_time.split(':')[0]) * 60 + int(prev_period_time.split(':')[1])
-                #     prev_gameTime = prev_minutes_time + prev_seconds_time
-
-                #     Time_from_the_last_event = game_time - prev_gameTime
-                #     # Distance from the last event
-                #     if all(coord is not None for coord in [x,y, x_coord_last_event, y_coord_last_event]):
-                #         Distance_from_the_last_event = distance.euclidean([x, y], [x_coord_last_event, y_coord_last_event])
-                #     else:
-                #         Distance_from_the_last_event = None
-
-                #     # Rebound
-                #     rebound = True if last_event_type == 'Shot' else False 
-
-                #     # change in shot angle
-                #     change_shot_angle=None
-                #     if rebound == True:
-                #         last_shot_dist = None
-                #         if x!=None and y!= None and x_coord_last_event!=None and y_coord_last_event!=None:
-                #             if rink_side == "left":
-                #                 last_shot_dist = np.linalg.norm(np.array([x_coord_last_event,y_coord_last_event]) - np.array(RIGHT_NET_COOR))
-                #             elif rink_side == "right":
-                #                 last_shot_dist = np.linalg.norm(np.array([x_coord_last_event,y_coord_last_event]) - np.array(LEFT_NET_COOR))
-                #             else:
-                #                 last_shot_dist = None
-
-                #             last_shot_angle= None
-                #             if last_shot_dist != None:
-                #                 last_shot_angle = shot_angle(y_coord_last_event,last_shot_dist,rink_side)
-                            
-                #             if last_shot_angle!=None:
-                #                 change_shot_angle= shot_angle(y, shot_dist, rink_side)-last_shot_angle
-
-
-                #     # Speed
-                #     speed = Distance_from_the_last_event / Time_from_the_last_event if Distance_from_the_last_event is not None and Time_from_the_last_event != 0 else None
+            
 
                 #list for each event/play
                 item_row = [game_id,
+                            home_name,
+                            away_name,
+                            home_score,
+                            away_score,
                             play_idx,
                             play_type,
                             shot_type,
                             shot_dist,
                             game_time,
-                            # goals_home,
-                            # goals_away,
-                            # attack_team_name,
                             period,
                             period_time_rem,
                             coordinate,
                             shooter_id,
                             goalie_id,
                             empty_Net,
-                            # strength,
                             rink_side,
-                            # last_event_type, 
-                            # x_coord_last_event,
-                            # y_coord_last_event,
-                            # Time_from_the_last_event,
-                            # Distance_from_the_last_event,
-                            # rebound,
-                            # change_shot_angle,
-                            # speed,
-                            # x,
-                            # y
                             ]
 
 
@@ -282,32 +191,22 @@ def json_reader(json_path:str) -> pd.DataFrame:
         
         #list->pd.DataFreame
         df = pd.DataFrame(rows,columns=["game_id",
+                                        "home_name",
+                                        "away_name",
+                                        "home_score",
+                                        "away_score",
                                         "event_idx",
                                         "play_type",
                                         "shot_type",
                                         "shot_dist",
                                         "game_time",
-                                        # "goals_home",
-                                        # "goals_away",
-                                        # "attack_team_name",
                                         "period",
                                         "period_time_rem",
                                         "coordinate",
                                         "shooter_id",
                                         "goalie_id",
                                         "empty_Net",
-                                        # "strength",
                                         "rink_side",
-                                        # 'last_event_type',
-                                        # 'x_coord_last_event',
-                                        # 'y_coord_last_event',
-                                        # 'Time_from_the_last_event',
-                                        # 'Distance_from_the_last_event',
-                                        # 'Rebound',
-                                        # 'change_shot_angle',
-                                        # 'Speed',
-                                        # 'x',
-                                        # 'y'
                                         ])
         
         df['angle_net'] = df.apply(lambda row: shot_angle(row['coordinate'].get('y', 0), row['shot_dist'], row['rink_side']) if isinstance(row['coordinate'], dict) else 0, axis=1)
