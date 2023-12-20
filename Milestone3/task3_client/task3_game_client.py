@@ -111,9 +111,22 @@ class GameClient:
     
     def check_new_event(self, data, game_id):
 
-        new_event = [event for event in data['plays'] if int(event['eventId']) > self.last_event[game_id] and event['typeDescKey'] in ['shot-on-goal', 'goal', 'missed-shot']]
-        # new_event = [event for event in data['plays'] if event['typeDescKey'] in ['shot-on-goal', 'goal', 'missed-shot'] and ( int(event['period']) != self.last_event_period[game_id] and int(event['period']) > self.last_event_period[game_id] ) and self.time_calc(event['timeRemaining']) < self.time_calc(self.last_event_time_rem[game_id])]
-        # print(f"Any new new events for {self.last_event[game_id]}: {len(new_event)}")
+        # print("New method")
+        new_event = []
+        for event in data['plays']:
+            if event['typeDescKey'] in ['shot-on-goal', 'goal', 'missed-shot']:
+                if event['period']==self.last_event_period[game_id]:
+                    #compare remaining time
+                    if self.time_calc(event['timeRemaining']) < self.time_calc(self.last_event_time_rem[game_id]):
+                        new_event.append(event)
+                elif event['period'] > self.last_event_period[game_id]:
+                    # new period starts
+                    new_event.append(event)
+                    
+        # print("Prev method")            
+        # new_event = [event for event in data['plays'] if event['typeDescKey'] in ['shot-on-goal', 'goal', 'missed-shot'] and int(event['eventId']) > self.last_event[game_id]]
+        
+        # print(f"Any new new events for {game_id}'s event {self.last_event[game_id]}: {[event['eventId']for event in new_event]}")
         return new_event
 
 
@@ -128,14 +141,14 @@ if __name__=="__main__":
 
     result2 = client.get_game("2022030415")
     result2 = client.get_game("2022030415")
-    result2 = client.get_game("2022030415")
-    result2 = client.get_game("2022030415")
+    # result2 = client.get_game("2022030415")
+    # result2 = client.get_game("2022030415")
 
-    result2 = client.get_game("2022030413")
-    result2 = client.get_game("2022030413")
+    # result2 = client.get_game("2022030413")
+    # result2 = client.get_game("2022030413")
 
-    result2 = client.get_game("2022030411")
-    result2 = client.get_game("2022030411")
+    # result2 = client.get_game("2022030411")
+    # result2 = client.get_game("2022030411")
     # print("get result 2 shape:", type(result2))
 
     # result2 = client.get_game("2022030415")
