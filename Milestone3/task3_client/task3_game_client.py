@@ -28,7 +28,12 @@ class GameClient:
 
         result_df = pd.DataFrame()
         if len(new_events) > 0:
+            
+            #if any new events is_live var is True
+            is_live = True
+            
             new_events_df = create_game_df(game_data)
+            print(f"events new: {len(new_events_df.event_idx.unique())}")
             model_features = self.know_current_model()
             
             predict_input_df = new_events_df[model_features]
@@ -41,9 +46,19 @@ class GameClient:
             print(result_df.columns)
             self.tracked_df = pd.concat([self.tracked_df, result_df])
             self.last_event[game_id] = result_df.iloc[-1]['event_idx']
-            self.tracked_df.to_csv(f"event_data/game_{game_id}.csv") # create event data folder
+            self.tracked_df.to_csv(f"event_data/game_{game_id}.csv")
 
-        return result_df
+            period = result_df['period'].values
+            time_remaining = result_df['period_time_rem'].values
+            home_name = result_df['home_name'].values
+            away_name = result_df['away_name'].values
+            home_score = result_df['home_score'].values
+            away_score = result_df['away_score'].values
+            
+            return result_df, is_live, period, time_remaining, home_name, away_name, home_score, away_score
+        else:
+            is_live=False
+            return result_df, is_live, -1, -1, '', "", -1, -1 
 
     def get_game(self, game_id):
         # adds data to local vent folder for a new game_id
@@ -83,20 +98,20 @@ if __name__=="__main__":
     # print("resultt shape: ", type(result))
 
     result2 = client.ping_game(game_id)
-    print("ping result 2 shape:", type(result2), result2.shape)
+    print("ping result 2 shape:", result2)
 
     # result2 = client.get_game("2022030414")
     # print("get result 2 shape:", type(result2))
 
     result2 = client.get_game("2022030415")
-    print("get result 2 shape:", type(result2))
+    print("get result 2 shape:", result2)
     
     result2 = client.ping_game("2022030415")
-    print("ping result 2 shape:", result2.shape)
+    print("ping result 2 shape:", result2)
 
 # @app.route("/get_live_events", methods=["GET"])
 # def get_live_events():
-#     """
+#     """pd.DataFrame.append
 #     Simulates querying live game data and processing events.
 #     Filters out events that have already been processed.
 #     """
