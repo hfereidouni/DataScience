@@ -77,13 +77,15 @@ def before_first_request():
     global COMET_CLIENT
 
     COMET_CLIENT = CometClient(api_key=API_KEY, work_place = WORK_PLACE,
-                           valid_models=["Log_reg_shot_dist_only",
-                                        "Log_reg_shot_dist_and_angle"],
-                            newest_model_version={"Log_reg_shot_dist_only":"1.17.0",
-                                                     "Log_reg_shot_dist_and_angle":"1.9.0"})
+                           valid_models=["Log_Reg_shot_dist_only",
+                                        "Log_Reg_shot_dist_and_angle"],
+                            newest_model_version={"Log_Reg_shot_dist_only":"1.17.0",
+                                                     "Log_Reg_shot_dist_and_angle":"1.9.0"})
 
     default_model = COMET_CLIENT.default_model
     default_path = MODEL_DIR+default_model+'.joblib'
+    print(f"def model: {default_model}")
+    print(f"def path: {default_path} {os.path.exists(default_path)} ")
     versions = COMET_CLIENT.newest_model_version
     
     # download default model

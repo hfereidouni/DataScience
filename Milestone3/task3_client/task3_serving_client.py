@@ -42,7 +42,7 @@ class ServingClient:
             else:
                 logger.error(f"Prediction failed with status code: {response.status_code}")
                 return pd.DataFrame()
-        except requests.RequestExExcetion as e:
+        except requests.RequestException as e:
             logger.error(f"Network error occured: {e}")
             return pd.DataFrame()
 
@@ -99,4 +99,6 @@ class ServingClient:
             return {}
         # ecept Valuerror as e:
             
-        
+if __name__=="__main__":
+
+    sc = ServingClient(ip="0.0.0.0", port=8000)

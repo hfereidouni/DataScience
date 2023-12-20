@@ -9,11 +9,11 @@ from Tidy_Data_new import *
 
 
 def load_game(game_id):
-    url = f"https://api-web.nhle.com/ai/v1/game/{game_id}/feed/live"
+    url = f"https://api-web.nhle.com/v1/gamecenter/{game_id}/play-by-play"
     response = requests.get(url)
     data = json.loads(response.text)
     
-    return game_df
+    return data
 
 def create_game_df(game_data):
     game_df = json_reader_from_json_object(game_data)
@@ -26,31 +26,30 @@ def json_reader_from_json_object(game_json):
     game_id = game_json["id"]
     team_home = game_json["awayTeam"]
     team_away = game_json["homeTeam"]
+    home_name = team_home["name"]["default"]
+    away_name = team_away["name"]["default"]
     plays = game_json["plays"]
 
-    # print(game_id)
+    home_score = 0
+    away_score = 0
 
     rows = []
     # gathering shots' and goals' informations
     for i,play in enumerate(plays):
         item_row = []
-        # if play["result"]["event"] == "Shot" or play["result"]["event"]=="Goal":
         if play["typeDescKey"] == "shot-on-goal" or play["typeDescKey"] == "missed-shot" or play["typeDescKey"] == "goal":
 
             play_idx = play["eventId"]
 
-            # print(play_idx)
-
             period = play["period"]
             period_time_rem = play["timeRemaining"]
-            # goals_home = play["details"]["homeScore"]
-            # goals_away = play["details"]["awayScore"]
-            # attack_team_name = play["team"]["name"]
             play_type = None
             if play["typeDescKey"] == "shot-on-goal" or play["typeDescKey"] == "missed-shot":
                 play_type = "Shot"
             elif play["typeDescKey"] == "goal":
                 play_type = "Goal"
+                home_score = play["details"]["homeScore"]
+                away_score = play["details"]["awayScore"]
 
             shot_type = None
             shot_type_new = None
@@ -98,8 +97,6 @@ def json_reader_from_json_object(game_json):
                 else:
                     empty_Net = 0
 
-            #find the rinkside that each team should attack/defend
-            #and calculate the distance between play coordinates and net(attack rinkside) coordinate
             shot_dist = None
             if coordinate != {}:
                 if "y" not in coordinate:
@@ -123,7 +120,7 @@ def json_reader_from_json_object(game_json):
                             rink_side = "right"
                         else:
                             rink_side = "left"
-
+                
                 #calculate distance
                 if rink_side == "left":
                     shot_dist = np.linalg.norm(np.array([coordinate["x"],coordinate["y"]]) - np.array(RIGHT_NET_COOR))
@@ -131,62 +128,52 @@ def json_reader_from_json_object(game_json):
                     shot_dist = np.linalg.norm(np.array([coordinate["x"],coordinate["y"]]) - np.array(LEFT_NET_COOR))
                 else:
                     shot_dist = None
-            
+        
 
             #list for each event/play
             item_row = [game_id,
+                        home_name,
+                        away_name,
+                        home_score,
+                        away_score,
                         play_idx,
                         play_type,
                         shot_type,
                         shot_dist,
                         game_time,
-                        # goals_home,
-                        # goals_away,
-                        # attack_team_name,
                         period,
                         period_time_rem,
                         coordinate,
                         shooter_id,
                         goalie_id,
                         empty_Net,
-                        # strength,
                         rink_side,
                         ]
 
 
             #total list for all events/games
             rows.append(item_row)
-        
+    
     #list->pd.DataFreame
     df = pd.DataFrame(rows,columns=["game_id",
+                                    "home_name",
+                                    "away_name",
+                                    "home_score",
+                                    "away_score",
                                     "event_idx",
                                     "play_type",
                                     "shot_type",
                                     "shot_dist",
                                     "game_time",
-                                    # "goals_home",
-                                    # "goals_away",
-                                    # "attack_team_name",
                                     "period",
                                     "period_time_rem",
                                     "coordinate",
                                     "shooter_id",
                                     "goalie_id",
                                     "empty_Net",
-                                    # "strength",
                                     "rink_side",
-                                    # 'last_event_type',
-                                    # 'x_coord_last_event',
-                                    # 'y_coord_last_event',
-                                    # 'Time_from_the_last_event',
-                                    # 'Distance_from_the_last_event',
-                                    # 'Rebound',
-                                    # 'change_shot_angle',
-                                    # 'Speed',
-                                    # 'x',
-                                    # 'y'
                                     ])
-        
+    
     df['angle_net'] = df.apply(lambda row: shot_angle(row['coordinate'].get('y', 0), row['shot_dist'], row['rink_side']) if isinstance(row['coordinate'], dict) else 0, axis=1)
     df['is_goal'] = np.where(df['play_type'] == 'Goal', 1, 0)
         
@@ -194,4 +181,19 @@ def json_reader_from_json_object(game_json):
     return df
 
 
+if __name__=="__main__":
+    print("load game")
+    game_id = "2022030411"
+    game_df = load_game(game_id)
+    print(game_df.keys())
+    # print(game_df.head())
+    print("===================================")
+
+    game_df = create_game_df(game_df)
+    print("shape df: ", game_df.shape)
+    print("columns: ", game_df.columns)
+    print(game_df.tail())
+
+    print(game_df.iloc[-1]['event_idx'])
+    
 
