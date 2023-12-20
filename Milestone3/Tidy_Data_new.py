@@ -90,7 +90,7 @@ def json_reader(json_path:str) -> pd.DataFrame:
                     away_score = play["details"]["awayScore"]
 
                 play_owner_ID = play["details"]["eventOwnerTeamId"]
-                home_or_away = 1 if play_owner_ID==home_id else 0
+                home_or_away = 'home' if play_owner_ID==home_id else 'away'
 
                 shot_type = None
                 shot_type_new = None
