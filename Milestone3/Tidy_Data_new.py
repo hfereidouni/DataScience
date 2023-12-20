@@ -65,6 +65,9 @@ def json_reader(json_path:str) -> pd.DataFrame:
         away_name = team_away["name"]["default"]
         plays = game_json["plays"]
 
+        home_id = team_home["id"]
+        away_id = team_away["id"]
+
         home_score = 0
         away_score = 0
 
@@ -86,6 +89,9 @@ def json_reader(json_path:str) -> pd.DataFrame:
                     home_score = play["details"]["homeScore"]
                     away_score = play["details"]["awayScore"]
 
+                play_owner_ID = play["details"]["eventOwnerTeamId"]
+                home_or_away = 1 if play_owner_ID==home_id else 0
+
                 shot_type = None
                 shot_type_new = None
 
@@ -99,7 +105,7 @@ def json_reader(json_path:str) -> pd.DataFrame:
                     shot_type = shot_type_new.title()
                 elif shot_type_new == "wrap-around":
                     shot_type = shot_type_new.capitalize()
-                
+
                 # coordinate= {"x":play["details"]["xCoord"],"y":play["details"]["yCoord"]}
                 coordinate= {}
                 if "xCoord" in play["details"]:
@@ -171,6 +177,7 @@ def json_reader(json_path:str) -> pd.DataFrame:
                             away_name,
                             home_score,
                             away_score,
+                            home_or_away,
                             play_idx,
                             play_type,
                             shot_type,
@@ -195,6 +202,7 @@ def json_reader(json_path:str) -> pd.DataFrame:
                                         "away_name",
                                         "home_score",
                                         "away_score",
+                                        "home_or_away",
                                         "event_idx",
                                         "play_type",
                                         "shot_type",
