@@ -14,6 +14,8 @@ class GameClient:
         self.serving_client = task3_serving_client.ServingClient(port=8080)
         self.tracked_df = pd.DataFrame()
         self.last_event = {}
+        self.last_event_period = {}
+        self.last_event_time_rem = {}
         if not os.path.exists("event_data/"):
             os.makedirs("event_data")
             print("event folder created successfully!")
@@ -22,70 +24,96 @@ class GameClient:
         return self.serving_client.current_model()
 
     def ping_game(self, game_id):
+        """
+        Loads the data based on game_id into a dataframe,
+        checks for new events and selects one,
+        uses the selected event to return its dataframe data,
+        and updates the last_event tracker with this latest event.
+        """
+        
         #loads data based on a game id
         game_data = load_game(game_id)
         new_events = self.check_new_event(game_data, game_id)
 
         result_df = pd.DataFrame()
         if len(new_events) > 0:
+            # sample one new event
+            new_event_taken = new_events[0]["eventId"]
             
             #if any new events is_live var is True
             is_live = True
             
             new_events_df = create_game_df(game_data)
-            print(f"events new: {len(new_events_df.event_idx.unique())}")
+            #filter the new event
+            new_events_df = new_events_df[new_events_df.event_idx == new_event_taken]
             model_features = self.know_current_model()
             
             predict_input_df = new_events_df[model_features]
-            # print(f"data shape: {new_events_df.shape} predict shape: {predict_input_df.shape}")
-            predict_df = self.serving_client.predict(predict_input_df)
-            # print(f"predict shape: {predict_df.shape} {predict_df.columns} {predict_df.index}")
-            # print(f"new event df: {new_events_df.index}")
-            # print(predict_df)
-            result_df = pd.merge(new_events_df, predict_df, left_index=True, right_index=True)
-            print(result_df.columns)
+            # predict_df = self.serving_client.predict(predict_input_df)
+            # result_df = pd.merge(new_events_df, predict_df, left_index=True, right_index=True)
+            result_df = new_events_df.copy()
+            # print(result_df, result_df.columns)
+            
             self.tracked_df = pd.concat([self.tracked_df, result_df])
-            self.last_event[game_id] = result_df.iloc[-1]['event_idx']
+            self.last_event[game_id] = result_df['event_idx'].values[0]
+            self.last_event_period[game_id] = result_df['period'].values[0]
+            self.last_event_time_rem[game_id] = result_df['period_time_rem'].values[0]
+            print("tracker elements in ping step: ", self.last_event, self.last_event_period, self.last_event_time_rem)
             self.tracked_df.to_csv(f"event_data/game_{game_id}.csv")
 
-            period = result_df['period'].values
-            time_remaining = result_df['period_time_rem'].values
-            home_name = result_df['home_name'].values
-            away_name = result_df['away_name'].values
-            home_score = result_df['home_score'].values
-            away_score = result_df['away_score'].values
+            period = result_df['period'].values[0]
+            time_remaining = result_df['period_time_rem'].values[0]
+            home_name = result_df['home_name'].values[0]
+            away_name = result_df['away_name'].values[0]
+            home_score = result_df['home_score'].values[0]
+            away_score = result_df['away_score'].values[0]
             
             return result_df, is_live, period, time_remaining, home_name, away_name, home_score, away_score
         else:
+            #No new events
             is_live=False
             return result_df, is_live, -1, -1, '', "", -1, -1 
 
     def get_game(self, game_id):
+        """
+        start of pinging process,
+        loads data from local if game_id data already present, else create it from response,
+        adds first event in tracker,
+        and finally runs ping_game() function.
+        """
         # adds data to local vent folder for a new game_id
         if self.last_event.get(game_id) is None: 
             game_df = create_game_df(load_game(game_id))
             # print("game df shape: ", game_df.shape)
             model_features = self.know_current_model()
             predict_input_df = game_df[model_features] #only for shot_dist_only model
-            predict_df = self.serving_client.predict(predict_input_df)
-            # print("predict shape: ", predict_df.shape, predict_df.columns, predict_df.index)
-            # print(predict_df)
-            # print("data shape:", game_df.index)
-            result_df = pd.merge(game_df, predict_df, left_index=True, right_index=True)
-            # result_df = game_df.copy()
-            print("result shape: ", result_df.shape, result_df.columns)
+            # predict_df = self.serving_client.predict(predict_input_df)
+            # result_df = pd.merge(game_df, predict_df, left_index=True, right_index=True)
+            result_df = game_df.copy()
+            print("Newly joined \n")
+            # print("result shape: ", result_df.shape, result_df.columns)
             self.tracked_df = result_df
-            self.last_event[game_id] = result_df.iloc[-1]['event_idx']
-            print("tracker elements: ", self.last_event)
+            self.last_event[game_id] = result_df.iloc[0]['event_idx']
+            self.last_event_period[game_id] = result_df.iloc[0]['period']
+            self.last_event_time_rem[game_id] = result_df.iloc[0]['period_time_rem']
+
+            print("tracker elements: ", self.last_event, self.last_event_period, self.last_event_time_rem)
             self.tracked_df.to_csv(f"event_data/game_{game_id}.csv")
         else:
+            print("Alreay have it!")
             self.tracked_df = pd.read_csv(f'event_data/game_{game_id}.csv')
-            self.ping_game(game_id)
+        
+        self.ping_game(game_id)
 
+    def time_calc(self, time_rem_str):
+        minute, second = time_rem_str.split(":")
+        return int(minute)*60 + int(second)
+    
     def check_new_event(self, data, game_id):
 
-        new_event = [event for event in data['plays'] if int(event['eventId']) > self.last_event[game_id] and event['typeDescKey'] in ['shot-on-goal', 'goal']]
-        print(f"Any new new events: {new_event}")
+        new_event = [event for event in data['plays'] if int(event['eventId']) > self.last_event[game_id] and event['typeDescKey'] in ['shot-on-goal', 'goal', 'missed-shot']]
+        # new_event = [event for event in data['plays'] if event['typeDescKey'] in ['shot-on-goal', 'goal', 'missed-shot'] and ( int(event['period']) != self.last_event_period[game_id] and int(event['period']) > self.last_event_period[game_id] ) and self.time_calc(event['timeRemaining']) < self.time_calc(self.last_event_time_rem[game_id])]
+        # print(f"Any new new events for {self.last_event[game_id]}: {len(new_event)}")
         return new_event
 
 
@@ -93,21 +121,28 @@ if __name__=="__main__":
     client=  GameClient()
     print("get nw event")
 
-    game_id = "2022030411"
+    game_id = "2022030414"
     result = client.get_game(game_id)
-    # print("resultt shape: ", type(result))
-
-    result2 = client.ping_game(game_id)
-    print("ping result 2 shape:", result2)
-
-    # result2 = client.get_game("2022030414")
-    # print("get result 2 shape:", type(result2))
+    result2 = client.get_game(game_id)
+    result2 = client.get_game(game_id)
 
     result2 = client.get_game("2022030415")
-    print("get result 2 shape:", result2)
+    result2 = client.get_game("2022030415")
+    result2 = client.get_game("2022030415")
+    result2 = client.get_game("2022030415")
+
+    result2 = client.get_game("2022030413")
+    result2 = client.get_game("2022030413")
+
+    result2 = client.get_game("2022030411")
+    result2 = client.get_game("2022030411")
+    # print("get result 2 shape:", type(result2))
+
+    # result2 = client.get_game("2022030415")
+    # print("get result 2 shape:", result2)
     
-    result2 = client.ping_game("2022030415")
-    print("ping result 2 shape:", result2)
+    # result2 = client.ping_game("2022030415")
+    # print("ping result 2 shape:", result2)
 
 # @app.route("/get_live_events", methods=["GET"])
 # def get_live_events():
