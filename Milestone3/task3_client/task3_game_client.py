@@ -64,18 +64,19 @@ class GameClient:
             new_events_df = new_events_df[new_events_df.event_idx == new_event_taken].reset_index(drop=True)
             # print("input:---", new_events_df.shape)
 
-            model_features = self.get_model_features()
-            predict_input_df = new_events_df[model_features]
-            predict_df = self.serving_client.predict(predict_input_df)
-            result_df = pd.merge(new_events_df, predict_df, left_index=True, right_index=True)
+            # model_features = self.get_model_features()
+            # predict_input_df = new_events_df[model_features]
+            # predict_df = self.serving_client.predict(predict_input_df)
+            # result_df = pd.merge(new_events_df, predict_df, left_index=True, right_index=True)
 
-            #added for xg
-            home_xg = result_df.apply(lambda row:row["chance of goal"]*1 if row["home_or_away"]=="home" else 0,axis=1)
-            away_xg = result_df.apply(lambda row:row["chance of goal"]*1 if row["home_or_away"]=="away" else 0,axis=1)
-            result_df['home_xg']=home_xg.cumsum()
-            result_df['away_xg']=away_xg.cumsum()
+            # #added for xg
+            # home_xg = result_df.apply(lambda row:row["chance of goal"]*1 if row["home_or_away"]=="home" else 0,axis=1)
+            # away_xg = result_df.apply(lambda row:row["chance of goal"]*1 if row["home_or_away"]=="away" else 0,axis=1)
+            # result_df['home_xg']=home_xg.cumsum()
+            # result_df['away_xg']=away_xg.cumsum()
+            result_df = new_events_df.copy()
             # print(result_df, result_df.shape, result_df.columns)
-
+            
             #tracking purposes
             self.last_event[game_id] = result_df['event_idx'].values[0]
             self.last_event_period[game_id] = result_df['period'].values[0]
@@ -120,18 +121,18 @@ if __name__=="__main__":
     client=  GameClient()
     print("get nw event")
 
-    game_id = "2022030414"
+    game_id = "2023020498"#"2022030414"
     result = client.ping_game(game_id)
     result2 = client.ping_game(game_id)
     result2 = client.ping_game(game_id)
 
-    result2 = client.ping_game("2022030415")
-    result2 = client.ping_game("2022030415")
-    result2 = client.ping_game("2022030415")
-    result2 = client.ping_game("2022030415")
+    # result2 = client.ping_game("2022030415")
+    # result2 = client.ping_game("2022030415")
+    # result2 = client.ping_game("2022030415")
+    # result2 = client.ping_game("2022030415")
 
-    result2 = client.ping_game("2022030413")
-    result2 = client.ping_game("2022030413")
+    # result2 = client.ping_game("2022030413")
+    # result2 = client.ping_game("2022030413")
 
-    result2 = client.ping_game("2022030411")
-    result2 = client.ping_game("2022030411")
+    # result2 = client.ping_game("2022030411")
+    # result2 = client.ping_game("2022030411")
