@@ -33,6 +33,9 @@ def json_reader_from_json_object(game_json):
     home_score = 0
     away_score = 0
 
+    home_id = team_home["id"]
+    away_id = team_away["id"]
+
     rows = []
     # gathering shots' and goals' informations
     for i,play in enumerate(plays):
@@ -51,6 +54,9 @@ def json_reader_from_json_object(game_json):
                 home_score = play["details"]["homeScore"]
                 away_score = play["details"]["awayScore"]
 
+            play_owner_ID = play["details"]["eventOwnerTeamId"]
+            home_or_away = 'home' if play_owner_ID==home_id else 'away'
+            
             shot_type = None
             shot_type_new = None
 
@@ -136,6 +142,7 @@ def json_reader_from_json_object(game_json):
                         away_name,
                         home_score,
                         away_score,
+                        home_or_away,
                         play_idx,
                         play_type,
                         shot_type,
@@ -160,6 +167,7 @@ def json_reader_from_json_object(game_json):
                                     "away_name",
                                     "home_score",
                                     "away_score",
+                                    "home_or_away",
                                     "event_idx",
                                     "play_type",
                                     "shot_type",
