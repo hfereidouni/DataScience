@@ -135,7 +135,7 @@ def download_registry_model():
     app.logger.info(json)
 
     #read from request
-    model_name = json["model_name"]
+    model_name = json["model_name"].lower()
     version = json["version"]
 
     model_path = MODEL_DIR+model_name+'.joblib'
