@@ -49,7 +49,7 @@ class GameClient:
             #make this the new event
             new_events = int(self.last_event[game_id])
         else:
-            new_events = self.check_new_event(game_data, game_id)[0]["eventId"]
+            new_events = self.check_new_event(game_data, game_id)
 
         result_df = pd.DataFrame()
         if new_events:
@@ -114,6 +114,11 @@ class GameClient:
                     new_event.append(event)
                     
         # print(f"Any new new events for {game_id}'s event {self.last_event[game_id]}: {[event['eventId']for event in new_event]}")
+        #check for no new events
+        if len(new_event)==0:
+            return 0
+        else:
+            return new_event[0]["eventId"]
         return new_event
 
 
@@ -121,7 +126,7 @@ if __name__=="__main__":
     client=  GameClient()
     print("get nw event")
 
-    game_id = "2023020498"#"2022030414"
+    game_id = "2022020011"#"2022030414"
     result = client.ping_game(game_id)
     result2 = client.ping_game(game_id)
     result2 = client.ping_game(game_id)
