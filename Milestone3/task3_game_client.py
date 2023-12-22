@@ -142,7 +142,7 @@ if __name__=="__main__":
     print("get nw event")
 
     game_id = "2022030414"
-    result = client.get_game(game_id)
+    result = client.ping_game(game_id)
     # result2 = client.get_game(game_id)
     # result2 = client.get_game(game_id)
 
