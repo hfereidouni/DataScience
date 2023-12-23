@@ -1,0 +1,8 @@
+INFO:app:Default model is loaded as Log_Reg_shot_dist_only
+INFO:werkzeug:127.0.0.1 - - [18/Dec/2023 23:59:28] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [18/Dec/2023 23:59:35] "[31m[1mGET /predict HTTP/1.1[0m" 405 -
+INFO:app:Logs read with success.
+INFO:werkzeug:127.0.0.1 - - [18/Dec/2023 23:59:46] "GET /logs HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Dec/2023 23:59:56] "GET /check HTTP/1.1" 200 -
+INFO:app:Default model is loaded as Log_Reg_shot_dist_only
+INFO:app:Logs read with success.
