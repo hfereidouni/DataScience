@@ -93,7 +93,7 @@ class ServingClient:
 
         # Prepare the request payload
         request_payload = {
-            "workspace": workspace,
+            # "workspace": workspace,
             "model_name": model,
             "version": version
         }
@@ -107,6 +107,7 @@ class ServingClient:
                 result_data = response.json()
                 return result_data
             else:
+                print(response)
                 logger.error(f"Failed to download model with status code: {response.status_code}")
                 return {}
         except requests.RequestException as e:
@@ -116,4 +117,8 @@ class ServingClient:
             
 if __name__=="__main__":
 
-    sc = ServingClient(ip="0.0.0.0", port=8000)
+    # sc = ServingClient(ip="0.0.0.0", port=8000)
+    sc = ServingClient(ip="127.0.0.1", port=8080)
+
+    reply = sc.download_registry_model("worskppace", "Log_Reg_shot_dist_and_angle", "1.9.0")
+    
