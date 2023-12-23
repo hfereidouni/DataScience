@@ -40,9 +40,9 @@ class GameClient:
         if self.last_event.get(game_id) is None:
             temp_df = create_game_df(game_data)
             # print("in ping_game, result shape: ", temp_df.shape, temp_df.columns)
-            self.last_event[game_id] = temp_df.iloc[0]['event_idx']
-            self.last_event_period[game_id] = temp_df.iloc[0]['period']
-            self.last_event_time_rem[game_id] = temp_df.iloc[0]['period_time_rem']
+            self.last_event[game_id] = temp_df.iloc[-1]['event_idx']
+            self.last_event_period[game_id] = temp_df.iloc[-1]['period']
+            self.last_event_time_rem[game_id] = temp_df.iloc[-1]['period_time_rem']
 
             print("tracker elements for new game_id: ", self.last_event, self.last_event_period, self.last_event_time_rem)
 
@@ -126,7 +126,7 @@ if __name__=="__main__":
     client=  GameClient()
     print("get nw event")
 
-    game_id = "2022020011"#"2022030414"
+    game_id = "2023020510"#"2022030414"
     result = client.ping_game(game_id)
     result2 = client.ping_game(game_id)
     result2 = client.ping_game(game_id)
