@@ -13,7 +13,14 @@ FROM python:3.7
 # https://docs.docker.com/engine/reference/builder/#workdir
 # Create and cd into /code as your working directory
 WORKDIR /code
-
+COPY /ift6758/requirements.txt .
+COPY /ift6758 .
+COPY /serving/app.py .
+COPY streamlit.py .
+COPY utils.py .
+COPY /ift6758/ift6758/client/Tidy_Data_new.py .
+COPY /ift6758/ift6758/client/game_client.py .
+COPY /ift6758/ift6758/client/serving_client.py .
 
 # The main docker commands you will find useful:
 # 
@@ -27,12 +34,18 @@ WORKDIR /code
 #
 #       RUN <SHELL COMMAND>   
 #
+RUN pip install --upgrade pip
+
+RUN pip install -r requirements.txt
+RUN pip install xgboost
+RUN pip install streamlit
 # Set an environment variable:
 # https://docs.docker.com/engine/reference/builder/#env
 #
 #       ENV <ENV_VAR>=<DEFAULT>
 #
 # Expose a port
+EXPOSE 8080
 # https://docs.docker.com/engine/reference/builder/#port
 #
 #       EXPOSE <PORT>
@@ -42,7 +55,7 @@ WORKDIR /code
 #
 #       CMD <SHELL COMMAND>
 
-
+ENTRYPOINT ["streamlit", "run", "streamlit.py", "--server.port=8080", "--server.address=0.0.0.0"]
 
 # TODO: add code, optionally a default model if you want 
 
