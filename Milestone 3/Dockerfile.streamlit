@@ -19,8 +19,8 @@ COPY /serving/app.py .
 COPY streamlit.py .
 COPY utils.py .
 COPY /ift6758/ift6758/client/Tidy_Data_new.py .
-COPY /ift6758/ift6758/client/game_client.py .
-COPY /ift6758/ift6758/client/serving_client.py .
+COPY /ift6758/ift6758/client/task3_game_client.py .
+COPY /ift6758/ift6758/client/task3_serving_client.py .
 
 # The main docker commands you will find useful:
 # 
