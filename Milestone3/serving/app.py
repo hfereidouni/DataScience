@@ -40,8 +40,8 @@ class CometClient(object):
         model = api.get_model(workspace=self.work_place, model_name=model_name)
         model.download(version=version,output_folder=output_folder,expand=True)
 
-API_KEY = "v5q8O8LftZtvOcoXlVM8Ku8fH" #os.environ.get("COMET_API_KEY") if get from env var
-# API_KEY = os.environ.get("COMET_API_KEY") #if get from env var
+# API_KEY = "v5q8O8LftZtvOcoXlVM8Ku8fH" #os.environ.get("COMET_API_KEY") if get from env var
+API_KEY = os.environ.get("COMET_API_KEY") #if get from env var
 WORK_PLACE = "hfereidouni"
 COMET_CLIENT = None # will be initialized at @app.before_first_request
 LOADED_MODEL = None # will be initialized at @app.before_first_request
