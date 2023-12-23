@@ -1,0 +1,14 @@
+# # docker-compose.yml
+version: '3.11'
+
+services:
+  serving:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.serving
+    image: flaskp-app
+    environment:
+        - COMET_API_KEY=${COMET_API_KEY}
+
+
+     
