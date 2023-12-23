@@ -94,7 +94,7 @@ class ServingClient:
 
         # Prepare the request payload
         request_payload = {
-            "workspace": workspace,
+            # "workspace": workspace,
             "model_name": model,
             "version": version
         }
