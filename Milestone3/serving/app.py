@@ -40,7 +40,8 @@ class CometClient(object):
         model = api.get_model(workspace=self.work_place, model_name=model_name)
         model.download(version=version,output_folder=output_folder,expand=True)
 
-API_KEY = "v5q8O8LftZtvOcoXlVM8Ku8fH" #os.environ.get("COMET_API_KEY") if get from env var
+# API_KEY = "v5q8O8LftZtvOcoXlVM8Ku8fH" #os.environ.get("COMET_API_KEY") if get from env var
+API_KEY = os.environ.get("COMET_API_KEY") #if get from env var
 WORK_PLACE = "hfereidouni"
 COMET_CLIENT = None # will be initialized at @app.before_first_request
 LOADED_MODEL = None # will be initialized at @app.before_first_request
@@ -77,10 +78,10 @@ def before_first_request():
     global COMET_CLIENT
 
     COMET_CLIENT = CometClient(api_key=API_KEY, work_place = WORK_PLACE,
-                           valid_models=["Log_reg_shot_dist_only",
-                                        "Log_reg_shot_dist_and_angle"],
-                            newest_model_version={"Log_reg_shot_dist_only":"1.17.0",
-                                                     "Log_reg_shot_dist_and_angle":"1.9.0"})
+                           valid_models=["Log_Reg_shot_dist_only",
+                                        "Log_Reg_shot_dist_and_angle"],
+                            newest_model_version={"Log_Reg_shot_dist_only":"1.17.0",
+                                                     "Log_Reg_shot_dist_and_angle":"1.9.0"})
 
     default_model = COMET_CLIENT.default_model
     default_path = MODEL_DIR+default_model+'.joblib'
@@ -198,4 +199,4 @@ def predict():
 
 # Use gunicorn/waitress
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=os.environ.get("SERVING_PORT", 8080))
+    app.run(host='0.0.0.0')
