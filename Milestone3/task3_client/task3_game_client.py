@@ -44,20 +44,28 @@ class GameClient:
             temp_df = create_game_df(game_data)
             all_new_events = self.collect_all_new_events(game_data, game_id)
             temp_df = temp_df[temp_df.event_idx.isin(all_new_events)].reset_index(drop=True)
-            return temp_df, False, -1, -1, '', "", -1, -1
+            period = temp_df.iloc[-1]['period'].astype(int)
+            time_remaining = temp_df.iloc[-1]['period_time_rem']
+            home_name = temp_df.iloc[-1]['home_name']
+            away_name = temp_df.iloc[-1]['away_name']
+            home_score = temp_df.iloc[-1]['home_score'].astype(int)
+            away_score = temp_df.iloc[-1]['away_score'].astype(int)
+            
+            return temp_df, False, period, time_remaining, home_name, away_name, home_score, away_score
 
-        #new game_id added 
+        #new game_id added
+        # print("check for first fetch: ", self.first_fetch_done)
         if self.last_event.get(game_id) is None and self.first_fetch_done==0:
             temp_df = create_game_df(game_data)
             #collect all shot data uptil now
             all_new_events = self.collect_all_new_events(game_data, game_id)
-            print(all_new_events)
+            # print(all_new_events)
             if len(all_new_events)==0:
                 print("No new shot events during first fetch")
                 return pd.DataFrame(), True, -1, -1, '', "", -1, -1
             else:
                 temp_df = temp_df[temp_df.event_idx.isin(all_new_events)].reset_index(drop=True)
-                print("all new evetns df: ", temp_df.shape)
+                # print("all new evetns df: ", temp_df.shape)
                 #saving lastest shot event
                 self.last_event[game_id] = temp_df.iloc[-1]['event_idx']
                 self.last_event_period[game_id] = temp_df.iloc[-1]['period']
@@ -76,13 +84,14 @@ class GameClient:
                 return temp_df, True, period, time_remaining, home_name, away_name, home_score, away_score
         else:
             new_events = self.check_new_event(game_data, game_id)
+            # print("enter me new events latest: ", new_events)
             result_df = pd.DataFrame()
             if new_events:
                 #if any new events is_game_live var is True
                 is_game_live = True            
                 # sample one new event
                 new_event_taken = new_events
-                print("new event: ", new_event_taken, type(new_event_taken))
+                # print("new event: ", new_event_taken, type(new_event_taken))
                 
                 #filter the new event
                 new_events_df = create_game_df(game_data)
@@ -118,7 +127,7 @@ class GameClient:
             else:
                 #No new events
                 is_game_live=True
-                return result_df, is_game_live, -1, -1, '', "", -1, -1 
+                return result_df, is_game_live, self.last_event_period[game_id], self.last_event_time_rem[game_id], '', "", -1, -1 
 
     def time_calc(self, time_rem_str):
         minute, second = time_rem_str.split(":")
@@ -160,7 +169,7 @@ if __name__=="__main__":
     client=  GameClient()
     print("get nw event")
 
-    game_id = "2023020510" # "2022030414" #
+    game_id = "2023020513" #"2022030414" #"2023020510" #  #
     result = client.ping_game(game_id)
     print("==========================================")
     result2 = client.ping_game(game_id)
