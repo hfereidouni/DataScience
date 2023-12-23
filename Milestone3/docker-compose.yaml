@@ -6,8 +6,10 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile.serving
-    image: flaskp-app
+    image: flask-app
     ports:
         - 5000:8080
+    env_file: .env
     environment:
         - COMET_API_KEY=${COMET_API_KEY}
+    

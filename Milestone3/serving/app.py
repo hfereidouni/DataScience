@@ -31,7 +31,7 @@ class CometClient(object):
         self.default_model = self.valid_models[0]
         
     def model_exist(self,model_name):
-        if(model_name not in list(map(str.lower,self.valid_models))):
+        if(model_name.lower() not in list(map(str.lower,self.valid_models))):
             return False
         return True
 
@@ -40,8 +40,8 @@ class CometClient(object):
         model = api.get_model(workspace=self.work_place, model_name=model_name)
         model.download(version=version,output_folder=output_folder,expand=True)
 
-# API_KEY = "v5q8O8LftZtvOcoXlVM8Ku8fH" #os.environ.get("COMET_API_KEY") if get from env var
-API_KEY = os.environ.get("COMET_API_KEY") #if get from env var
+API_KEY = "v5q8O8LftZtvOcoXlVM8Ku8fH" #os.environ.get("COMET_API_KEY") if get from env var
+# API_KEY = os.environ.get("COMET_API_KEY") #if get from env var
 WORK_PLACE = "hfereidouni"
 COMET_CLIENT = None # will be initialized at @app.before_first_request
 LOADED_MODEL = None # will be initialized at @app.before_first_request
@@ -136,7 +136,7 @@ def download_registry_model():
     app.logger.info(json)
 
     #read from request
-    model_name = json["model_name"].lower()
+    model_name = json["model_name"]
     version = json["version"]
 
     model_path = MODEL_DIR+model_name+'.joblib'
