@@ -1,4 +1,4 @@
-We are pleased to inform you that our Streamlit application is fully operational on local machines. However, we have encountered network-related challenges when deploying it in a Docker environment. Despite our best efforts, this issue remains unresolved.
+We are pleased to inform you that our Streamlit application is fully operational on local machines. However, we have encountered network-related challenges when deploying it in a Docker environment. Despite our best efforts, this issue remains unresolved. This problem is about the ports when it comes to the Docker part. 
 The application, enhanced with additional functionalities such as heatmap and shot coordination, has been meticulously developed. 
 
 Our Dockerfiles and images are functioning correctly, and the application runs flawlessly on a non-Docker local machine. The code is written in a clear and straightforward manner, with each function accompanied by comprehensive docstrings and comments for ease of understanding.
