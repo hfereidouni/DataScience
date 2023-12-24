@@ -18,13 +18,15 @@ import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# from client import task3_serving_client as serving_client
+# from client import task3_game_client as game_client
 
 # Global variable to hold the selected model information
 selected_model = None
 
 # Initialize the serving and game clients
 game_cli = game_client.GameClient()
-serving_cli = serving_client.ServingClient(ip='127.0.0.1', port=5000)
+serving_cli = serving_client.ServingClient(ip='serving', port=8000)
 
 
 def create_shot_heatmap(data):
@@ -50,9 +52,9 @@ def create_shot_heatmap(data):
     plt.ylabel('Feet', fontsize=18)
 
     # Fetch and overlay the heatmap on a rink image from a URL
-    #url = 'https://upload.wikimedia.org/wikipedia/commons/2/21/Hockeyrink_IIHF.png'
-    #response = requests.get(url)
-    img = plt.imread('rink.png')
+    # url = 'https://upload.wikimedia.org/wikipedia/commons/2/21/Hockeyrink_IIHF.png'
+    # response = requests.get(url)
+    img = plt.imread("rink.png")
     plt.imshow(img, extent=[-100, 100, -42.5, 42.5])  # Ensure correct aspect ratio
 
     # Annotations and Legends

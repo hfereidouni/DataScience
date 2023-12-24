@@ -11,7 +11,7 @@ processed_events_tracker = set()
 
 class GameClient:
     def __init__(self):
-        self.serving_client = task3_serving_client.ServingClient(port=5000)
+        # self.serving_client = task3_serving_client.ServingClient(port=8080)
         # self.tracked_df = pd.DataFrame()
         self.last_event = {}
         self.last_event_period = {}
@@ -23,8 +23,8 @@ class GameClient:
             os.makedirs("event_data")
             print("event folder created successfully!")
         
-    def get_model_features(self):
-        return self.serving_client.current_model()
+    # def get_model_features(self):
+    #     return self.serving_client.current_model()
 
     def ping_game(self, game_id):
         """

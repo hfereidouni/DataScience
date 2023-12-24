@@ -4,9 +4,30 @@ import os
 import numpy as np
 from tqdm import tqdm
 import requests
-from Tidy_Data_new import *
+import re
+import math
+from scipy.spatial import distance
+# from Tidy_Data_new import *
 
+LEFT_NET_COOR = [-89,0]
+RIGHT_NET_COOR = [89,0]
 
+def shot_angle(y, distance, rink_side):
+    # Check if y, distance, or rink_side is None, return None if any are missing
+    if y is None or distance is None or distance == 0 or rink_side is None or y == 0:
+        return 0
+
+    # Calculate the angle and handle exceptions if any
+    try:
+        if rink_side == 'right':
+            angle = np.arcsin(y/distance) * -180/math.pi
+        else:
+            angle = np.arcsin(y/distance) * 180/math.pi
+    except ValueError:
+        # In case y/distance is out of domain for arcsin function
+        return None
+    
+    return angle
 
 def load_game(game_id):
     url = f"https://api-web.nhle.com/v1/gamecenter/{game_id}/play-by-play"
@@ -53,10 +74,10 @@ def json_reader_from_json_object(game_json):
                 play_type = "Goal"
                 home_score = play["details"]["homeScore"]
                 away_score = play["details"]["awayScore"]
-
+            
             play_owner_ID = play["details"]["eventOwnerTeamId"]
             home_or_away = 'home' if play_owner_ID==home_id else 'away'
-            
+
             shot_type = None
             shot_type_new = None
 
@@ -185,7 +206,6 @@ def json_reader_from_json_object(game_json):
     df['angle_net'] = df.apply(lambda row: shot_angle(row['coordinate'].get('y', 0), row['shot_dist'], row['rink_side']) if isinstance(row['coordinate'], dict) else 0, axis=1)
     df['is_goal'] = np.where(df['play_type'] == 'Goal', 1, 0)
         
-    #print(df)
     return df
 
 

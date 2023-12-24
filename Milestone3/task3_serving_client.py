@@ -6,7 +6,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class ServingClient:
-    def __init__(self, ip: str = "127.0.0.1", port: int = 5000, features=None):
+    def __init__(self, ip: str = "0.0.0.0", port: int = 5000, features=None):
         self.base_url = f"http://{ip}:{port}"
         logger.info(f"Initializing client; base URL: {self.base_url}")
 
@@ -48,6 +48,7 @@ class ServingClient:
             # Make a POST request to the prediction endpoint
             response = requests.post(f"{self.base_url}/predict", json=input_json)
             # print(f"---------------------\n {response} \n ----------------------")
+            print(f"---------------------\n {response} \n ---------------------- {X.shape} \n {input_json}")
             if response.status_code == 200:
                 # Parse the JSON response and convert it back to DataFrame
                 result_json = response.json()
@@ -107,7 +108,6 @@ class ServingClient:
                 result_data = response.json()
                 return result_data
             else:
-                print(response)
                 logger.error(f"Failed to download model with status code: {response.status_code}")
                 return {}
         except requests.RequestException as e:
@@ -115,9 +115,6 @@ class ServingClient:
             return {}
         # ecept Valuerror as e:
             
-if __name__=="__main__":
+# if __name__=="__main__":
 
-    # sc = ServingClient(ip="0.0.0.0", port=8000)
-    sc = ServingClient(ip="127.0.0.1", port=8080)
-
-    #reply = sc.download_registry_model("worskppace", "Log_Reg_shot_dist_and_angle", "1.9.0")
+#     sc = ServingClient(ip="0.0.0.0", port=8000)
