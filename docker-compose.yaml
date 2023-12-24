@@ -1,0 +1,21 @@
+# docker-compose.yml
+version: '3'
+
+services:
+  serving:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.serving
+    image: flask-app
+    ports:
+        - 8000:8000
+    env_file: .env
+    environment:
+        - COMET_API_KEY=${COMET_API_KEY}
+
+  streamlit:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.streamlit
+    ports:
+      - "8050:8050"
