@@ -8,6 +8,7 @@ WORKDIR /code
 # RUN mkdir client
 
 ADD ./requirements.txt ./requirements.txt
+ADD ./Tidy_Data_new.py ./Tidy_Data_new.py
 ADD ./serving/app.py ./app.py
 ADD ./st_app.py ./st_app.py
 ADD ./game_loader.py ./game_loader.py
