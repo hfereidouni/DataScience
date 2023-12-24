@@ -10,3 +10,10 @@ To evaluate the application locally, please follow these steps:
 
 For Docker deployment, you have the option to build and run each Dockerfile individually or utilize the docker-compose.yaml file. To do so, execute the command docker-compose up in the respective directory.For Docker part please note that the "app.py" file should be in the "serving" directory same like the Github repository.
 We have ensured that all components of the application are thoroughly tested and are functioning as intended. We look forward to your feedback and are available for any further assistance or clarification you might need regarding the deployment and functionality of the application.
+
+Serving docker
+- build: bash build.sh <image_name>
+- run: bash run.sh <image_name> <Comet_api_key>
+e.g.
+> bash build.sh flask-app
+> bash run.sh flask-app "v5q8O8LftZtvOcoXlVM8Ku8fH"
